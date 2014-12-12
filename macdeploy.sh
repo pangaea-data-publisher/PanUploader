@@ -4,7 +4,7 @@ echo PanUploader
 
 echo - macdeployqt 
 
-cd ~/Development/aforge/panuploader
+cd ~/Development/GitHub/PanUploader
 
 rm -R '../../Distribution/PanUploader/PanUploader.app'
 cp -R './PanUploader-build-Desktop_Qt_5_3_2_LLDB-Release/PanUploader.app' '../../Distribution/PanUploader/PanUploader.app'
