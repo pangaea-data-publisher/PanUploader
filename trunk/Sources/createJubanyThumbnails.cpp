@@ -111,13 +111,10 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     tcmd << "send \"quit\\n\"" << endl;
     tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
 
+//  tcmd << "rm " << s_FilenameIn << endl;
     tcmd << "rm " << s_ScriptFile << endl;
     tcmd << "rm -r images" << endl;
-
-/*
-    tcmd << "rm " << s_FilenameIn << endl;
     tcmd << "rm runJubany.sh" << endl;
-*/
 #endif
 
 #if defined(Q_OS_WIN)
@@ -180,6 +177,11 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     {
         QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
         QMessageBox::warning( this, getApplicationName( true ), s_Message );
+    }
+    else
+    {
+        while ( fcmd.exists() == true )
+            wait( 1000 );
     }
 #endif
 
@@ -257,6 +259,9 @@ void MainWindow::doCreateJubanyThumbnails()
         sl_List.append( tr( "No more images available. Try again after " ) + QDate::currentDate().addDays( 1 ).toString( Qt::ISODate ) + tr( " 10:30 h." ) );
         showList( sl_List );
     }
+
+    if ( err == _NOERROR_ )
+        err = _DONE_;
 
 // **********************************************************************************************
 
