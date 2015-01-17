@@ -4,8 +4,6 @@
 
 #include "Application.h"
 
-#include "QDebug.h"
-
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
@@ -454,6 +452,8 @@ QString MainWindow::UploadDirectory( const int mode )
     case _CORES_:
         s_UploadDirectory = "Images/Cores";
         break;
+    case _LINESCANS_:
+        s_UploadDirectory = "Images/Linescan";
     default:
         break;
     }
@@ -508,3 +508,11 @@ void MainWindow::doBuildCoresScript()
 
     onError( err );
 }
+
+void MainWindow::doBuildLinescansScript()
+{
+    int err = doBuildScript( _LINESCANS_ );
+
+    onError( err );
+}
+

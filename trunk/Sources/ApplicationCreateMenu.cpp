@@ -56,6 +56,10 @@ void MainWindow::createActions()
     runCoresScriptAction->setShortcut(tr("Ctrl+C"));
     connect(runCoresScriptAction, SIGNAL(triggered()), this, SLOT(doBuildCoresScript()));
 
+    runLinescansScriptAction = new QAction(tr("&Run Linescans script"), this);
+    runLinescansScriptAction->setShortcut(tr("Ctrl+L"));
+    connect(runLinescansScriptAction, SIGNAL(triggered()), this, SLOT(doBuildLinescansScript()));
+
     setLastDownloadDateDialogAction = new QAction(tr("Set last Jubany download &date..."), this);
     setLastDownloadDateDialogAction->setShortcut(tr("Ctrl+D"));
     connect(setLastDownloadDateDialogAction, SIGNAL(triggered()), this, SLOT(doSetLastDownloadDateDialog()));
@@ -64,9 +68,9 @@ void MainWindow::createActions()
     getDatesAction->setShortcut(tr("Ctrl+G"));
     connect(getDatesAction, SIGNAL(triggered()), this, SLOT(doGetDates()));
 
-    runScriptAction = new QAction(tr("&Run Jubany script"), this);
-    runScriptAction->setShortcut(tr("Ctrl+R"));
-    connect(runScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));
+    runJubanyScriptAction = new QAction(tr("&Run Jubany script"), this);
+    runJubanyScriptAction->setShortcut(tr("Ctrl+R"));
+    connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));
 
     // Help menu
     aboutAction = new QAction(tr("&About ") + getApplicationName(), this);
@@ -139,13 +143,13 @@ void MainWindow::createMenus()
     scriptMenu = menuBar()->addMenu( tr( "&Script" ) );
     scriptMenu->addAction( runBenthosScriptAction );
     scriptMenu->addAction( runCoresScriptAction );
+    scriptMenu->addAction( runJubanyScriptAction );
+    scriptMenu->addAction( runLinescansScriptAction );
 /*
     scriptMenu->addSeparator();
     scriptMenu->addAction( setLastDownloadDateDialogAction );
     scriptMenu->addAction( getDatesAction );
 */
-
-    scriptMenu->addAction( runScriptAction );
 
     helpMenu = menuBar()->addMenu( tr( "&Help" ) );
     helpMenu->addAction( aboutAction );

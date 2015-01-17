@@ -152,6 +152,7 @@ private slots:
     void doCreateJubanyThumbnails();
     void doBuildBenthosScript();
     void doBuildCoresScript();
+    void doBuildLinescansScript();
 
 private:
     QStringList expandCommandline();
@@ -219,9 +220,10 @@ private:
     QAction *exitAction;
     QAction *setLastDownloadDateDialogAction;
     QAction *getDatesAction;
-    QAction *runScriptAction;
     QAction *runBenthosScriptAction;
     QAction *runCoresScriptAction;
+    QAction *runJubanyScriptAction;
+    QAction *runLinescansScriptAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
     QAction *showHelpAction;

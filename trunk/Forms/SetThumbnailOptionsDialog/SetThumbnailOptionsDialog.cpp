@@ -30,6 +30,9 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
     case _CORES_:
         dialog.PartOfPath->setText( tr( ".../Images/Cores/" ) );
         break;
+    case _LINESCANS_:
+        dialog.PartOfPath->setText( tr( ".../Images/Linescan/" ) );
+        break;
     default:
         break;
     }

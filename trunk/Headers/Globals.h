@@ -6,7 +6,7 @@
     const QString _PROGRAMDOI_          = "";
     const QString _PROGRAMREADME_       = "http://wiki.pangaea.de/wiki/PanUploader";
 
-    const QString _VERSION_	            = "2.3"; // Version number, 2014-04-01
+    const QString _VERSION_	            = "2.4"; // Version number, 2015-01-17
     const QChar	  _PSEPARATOR_			= '|';
 
     const int	_NOERROR_				= 0;
@@ -24,6 +24,7 @@
 
     const int   _BENTHOS_               = 1;
     const int   _CORES_                 = 2;
+    const int   _LINESCANS_             = 3;
 
     const int   _IMAGES_                = 1;
     const int   _THUMBNAILS_            = 2;
