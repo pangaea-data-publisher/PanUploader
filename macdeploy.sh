@@ -7,7 +7,7 @@ echo - macdeployqt
 cd ~/Development/GitHub/PanUploader
 
 rm -R '../../Distribution/PanUploader/PanUploader.app'
-cp -R './PanUploader-build-Desktop_Qt_5_4_0_clang_64bit-Release/PanUploader.app' '../../Distribution/PanUploader/PanUploader.app'
+cp -R './build-PanUploader-Desktop_Qt_5_4_1_clang_64bit-Release/PanUploader.app' '../../Distribution/PanUploader/PanUploader.app'
 cp './trunk/Resources/Info.plist' '../../Distribution/PanUploader/PanUploader.app/Contents/Info.plist'
 
 /Developer/Qt/5.4/clang_64/bin/macdeployqt '../../Distribution/PanUploader/PanUploader.app'
@@ -19,7 +19,6 @@ codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Insti
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/Frameworks/QtNetwork.framework'
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/Frameworks/QtPrintSupport.framework'
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/Frameworks/QtWidgets.framework'
-codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/Frameworks/libz.1.dylib'
 
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/PlugIns/bearer/libqcorewlanbearer.dylib'
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/PlugIns/bearer/libqgenericbearer.dylib'
