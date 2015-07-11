@@ -44,7 +44,7 @@ void MainWindow::createActions()
     exitAction->setShortcut(tr("Ctrl+Q"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(close()));
 
-    setGlobalOptionsDialogAction = new QAction(tr("Settings..."), this);
+    setGlobalOptionsDialogAction = new QAction(tr("General options..."), this);
     setGlobalOptionsDialogAction->setShortcut(tr("Ctrl+,"));
     connect(setGlobalOptionsDialogAction, SIGNAL(triggered()), this, SLOT(doSetGlobalOptionsDialog()));
 
