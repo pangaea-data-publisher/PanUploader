@@ -14,7 +14,7 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     int         i           = 0;
     int         n           = 0;
 
-    QString     s_UrlUpload = "pangaea-family/store/Images/Documentation/";
+    QString     s_UrlUpload = "/pangaea/htdocs/pangaea-family/store/Images/Documentation";
 
     QStringList sl_Input;
 
@@ -67,12 +67,12 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     {
         QString s_DownloadFile  = sl_Input.at( i ).section( "/", -1, -1 );
         QString s_Year          = sl_Input.at( i ).section( "/", 6, 6 );
-        QString s_UrlDownload   = "http://hs.pangaea.de/Images/Documentation/";
+        QString s_UrlDownload   = "http://hs.pangaea.de/Images/Documentation";
 
         if ( s_DownloadFile.contains( "Jubany_Station1" ) == true )
-            s_UrlDownload.append( "Jubany1/" );
+            s_UrlDownload.append( "/Jubany1/" );
         else
-            s_UrlDownload.append( "Jubany/" );
+            s_UrlDownload.append( "/Jubany/" );
 
         tcmd << "curl " << "-o \"" << QDir::toNativeSeparators( "${JubanyLocalPath}/images/" + s_DownloadFile ) << "\" " << s_UrlDownload << s_Year << "/" << s_DownloadFile << endl;
         ++i;
@@ -97,9 +97,9 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     tcmd << "expect \"sftp> \"" << endl;
 
     if ( sl_Input.at( 0 ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true ) // !!! find UrlUpload for first year only !!!
-        s_UrlUpload.append( "Jubany1/" );
+        s_UrlUpload.append( "/Jubany1/" );
     else
-        s_UrlUpload.append( "Jubany/" );
+        s_UrlUpload.append( "/Jubany/" );
 
     tcmd << "send \"cd " << s_UrlUpload << sl_Input.at( 0 ).section( "/", 6, 6 ) << "\\n\"" << endl; // !!! find UrlUpload for first year only !!!
 

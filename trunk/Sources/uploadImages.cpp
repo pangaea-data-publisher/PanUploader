@@ -442,18 +442,18 @@ QStringList MainWindow::createRemoteFilenameList( const int mode, const QStringL
 
 QString MainWindow::UploadDirectory( const int mode )
 {
-    QString s_UploadDirectory = "";
+    QString s_UploadDirectory = "/hs/usero";
 
     switch ( mode )
     {
     case _BENTHOS_:
-        s_UploadDirectory = "Images/Benthos";
+        s_UploadDirectory.append( "/Images/Benthos" );
         break;
     case _CORES_:
-        s_UploadDirectory = "Images/Cores";
+        s_UploadDirectory.append( "/Images/Cores" );
         break;
     case _LINESCANS_:
-        s_UploadDirectory = "Images/Linescan";
+        s_UploadDirectory.append( "/Images/Linescan" );
     default:
         break;
     }
