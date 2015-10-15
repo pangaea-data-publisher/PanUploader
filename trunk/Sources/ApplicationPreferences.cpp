@@ -44,6 +44,8 @@ void MainWindow::savePreferences()
         QSettings settings( getPreferenceFilename(), QSettings::IniFormat );
     #endif
 
+// **********************************************************************************************
+
     settings.beginGroup( getApplicationName( true ) );
 
     settings.setValue( "NumOfProgramStarts", gi_NumOfProgramStarts );
