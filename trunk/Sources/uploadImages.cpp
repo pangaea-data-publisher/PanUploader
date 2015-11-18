@@ -9,7 +9,7 @@
 // **********************************************************************************************
 // 2012-12-30
 
-int MainWindow::buildScript( const int mode, const QString &s_User_hssrv1, const QString &s_Password_hssrv1, const QString &s_User_pangaea, const QString &s_Password_pangaea,
+int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea,
                              QStringList &sl_FilenameList, const QString &s_EasyThumbnails, const QString &s_wget, const QString &s_psftp,
                              const QString &s_Level1_static, const QString &s_Level2_static, const int i_Level2_first, const int i_Level2_last,
                              const QString &s_Level3_static, const int i_Level3_first, const int i_Level3_last,
@@ -30,7 +30,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv1, const
     if ( ( b_createThumbnails == false ) && ( b_uploadImages == false ) && ( b_uploadThumbnails == false ) && ( b_turnImages == false ) )
         return( _APPBREAK_ );
 
-    if ( ( s_User_hssrv1.isEmpty() == true ) || ( s_Password_hssrv1.isEmpty() == true ) )
+    if ( ( s_User_hssrv2.isEmpty() == true ) || ( s_Password_hssrv2.isEmpty() == true ) )
         return( -30 );
 
     if ( ( s_User_pangaea.isEmpty() == true ) || ( s_Password_pangaea.isEmpty() == true ) )
@@ -103,9 +103,9 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv1, const
     {
         QStringList sl_RemoteFilenameList = createRemoteFilenameList( _IMAGES_, sl_FilenameList, s_Level1_static, s_Level2_static, i_Level2_first, i_Level2_last, s_Level3_static, i_Level3_first, i_Level3_last );
 
-        tcmd << "ftp -inv hssrv1.awi.de<<ENDFTP" << endl;
-        tcmd << "user " << s_User_hssrv1 << " " << s_Password_hssrv1 << endl;
-        tcmd << "cd " << UploadDirectory( mode ) << endl;
+        tcmd << "ftp -inv hssrv2.awi.de<<ENDFTP" << endl;
+        tcmd << "user " << s_User_hssrv2 << " " << s_Password_hssrv2 << endl;
+        tcmd << "cd " << UploadDirectory( _HSSRV2_, mode ) << endl;
 
         for ( int i=0; i<sl_UploadDirectoryList.count(); i++ )
             tcmd << "mkdir " << sl_UploadDirectoryList.at( i ) << endl;
@@ -126,7 +126,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv1, const
         tcmd << "expect \"password:\"" << endl;
         tcmd << "send \"" << s_Password_pangaea << "\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
-        tcmd << "send \"cd pangaea-family/store/" << UploadDirectory( mode ) << "\\n\"" << endl;
+        tcmd << "send \"cd " << UploadDirectory( _MW1_, mode ) << "\\n\"" << endl;
 
         for ( int i=0; i<sl_UploadDirectoryList.count(); i++ )
         {
@@ -174,8 +174,8 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv1, const
 
     for ( int i=0; i<sl_EventLabelList.count(); i++ )
     {
-        QString s_UploadDirectory = UploadDirectory( mode );
-        QString s_PHP_cmd         = "http://www.pangaea.de/PHP/";
+        QString s_UploadDirectory = UploadDirectory( 0, mode );
+        QString s_PHP_cmd         = "http://www.pangaea.de/PHP";
 
         s_PHP_cmd.append( s_UploadDirectory.replace( "Images/", "" ) );
         s_PHP_cmd.append( tr( ".php?B=" ) );
@@ -440,9 +440,21 @@ QStringList MainWindow::createRemoteFilenameList( const int mode, const QStringL
 // **********************************************************************************************
 // 2013-01-02
 
-QString MainWindow::UploadDirectory( const int mode )
+QString MainWindow::UploadDirectory( const int server, const int mode )
 {
-    QString s_UploadDirectory = "/hs/usero";
+    QString s_UploadDirectory = "";
+
+    switch ( server )
+    {
+    case _HSSRV2_:
+        s_UploadDirectory = "/hs/usero";
+        break;
+    case _MW1_:
+        s_UploadDirectory = "/pangaea/htdocs/pangaea-family/store";
+        break;
+    default:
+        break;
+    }
 
     switch ( mode )
     {
@@ -475,7 +487,7 @@ int MainWindow::doBuildScript( const int mode )
     if ( existsFirstFile( gi_ActionNumber, gs_FilenameFormat, gi_Extension, gsl_FilenameList ) == true )
     {
         if ( doSetThumbnailOptionsDialog( mode, gsl_FilenameList.at( 0 ), gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ImagesTurnAngle, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_turnImages, gb_runScript ) == QDialog::Accepted )
-            err = buildScript( mode, gs_User_hssrv1, gs_Password_hssrv1, gs_User_pangaea, gs_Password_pangaea, gsl_FilenameList, gs_EasyThumbnails, gs_wget, gs_psftp, gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ImagesTurnAngle, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_turnImages, gb_runScript );
+            err = buildScript( mode, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, gsl_FilenameList, gs_EasyThumbnails, gs_wget, gs_psftp, gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ImagesTurnAngle, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_turnImages, gb_runScript );
         else
             err = _CHOOSEABORTED_;
     }

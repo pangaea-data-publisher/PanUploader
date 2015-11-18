@@ -10,7 +10,7 @@ QString MainWindow::getJubanyUpdateList( const QString &s_lastDate, const QStrin
 {
     int     i               = 0;
 
-    QString s_Host          = "hssrv1.awi.de";
+    QString s_Host          = "hssrv2.awi.de";
     QString s_UpdateListDir = "/hs/usero/tmp/jupdates";
 
     QDate   lastDate        = QDate( QDate::currentDate() );
@@ -95,7 +95,7 @@ void MainWindow::doGetDates()
 {
     clearFilenameList( gi_ActionNumber, gsl_FilenameList );
 
-    gsl_FilenameList.append( getJubanyUpdateList( gs_lastDate, gs_WorkingDirectory, gs_User_hssrv1, gs_Password_hssrv1 ) );
+    gsl_FilenameList.append( getJubanyUpdateList( gs_lastDate, gs_WorkingDirectory, gs_User_hssrv2, gs_Password_hssrv2 ) );
 
     showList( gsl_FilenameList );
 }

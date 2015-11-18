@@ -37,7 +37,7 @@ void MainWindow::onError( const int err )
         QMessageBox::information( this, getApplicationName(), tr( "Can't create export file.\nFile is already open." ) );
         break ;
     case -30:
-        QMessageBox::information( this, getApplicationName(), tr( "hssrv1 account not set" ) );
+        QMessageBox::information( this, getApplicationName(), tr( "hssrv2 account not set" ) );
         break ;
     case -40:
         QMessageBox::information( this, getApplicationName(), tr( "pangaea-mw1 account not set" ) );

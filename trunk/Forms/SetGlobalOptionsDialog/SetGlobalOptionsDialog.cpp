@@ -17,8 +17,8 @@ void MainWindow::doSetGlobalOptionsDialog()
     dialog.wgetProgram_lineEdit->setText( gs_wget );
     dialog.psftpProgram_lineEdit->setText( gs_psftp );
 
-    dialog.User_hssrv1_lineEdit->setText( gs_User_hssrv1 );
-    dialog.Password_hssrv1_lineEdit->setText( gs_Password_hssrv1 );
+    dialog.User_hssrv2_lineEdit->setText( gs_User_hssrv2 );
+    dialog.Password_hssrv2_lineEdit->setText( gs_Password_hssrv2 );
 
     dialog.User_pangaea_lineEdit->setText( gs_User_pangaea );
     dialog.Password_pangaea_lineEdit->setText( gs_Password_pangaea );
@@ -45,8 +45,8 @@ void MainWindow::doSetGlobalOptionsDialog()
         gs_wget                 = dialog.wgetProgram_lineEdit->text();
         gs_psftp                = dialog.psftpProgram_lineEdit->text();
 
-        gs_User_hssrv1          = dialog.User_hssrv1_lineEdit->text();
-        gs_Password_hssrv1      = dialog.Password_hssrv1_lineEdit->text();
+        gs_User_hssrv2          = dialog.User_hssrv2_lineEdit->text();
+        gs_Password_hssrv2      = dialog.Password_hssrv2_lineEdit->text();
 
         gs_User_pangaea         = dialog.User_pangaea_lineEdit->text();
         gs_Password_pangaea     = dialog.Password_pangaea_lineEdit->text();

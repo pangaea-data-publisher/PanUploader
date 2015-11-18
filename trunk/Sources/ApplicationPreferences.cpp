@@ -70,8 +70,8 @@ void MainWindow::savePreferences()
     settings.setValue( "UserP", gs_User_pangaea );
     settings.setValue( "PasswordP", gs_Password_pangaea );
 
-    settings.setValue( "UserH", gs_User_hssrv1 );
-    settings.setValue( "PasswordH", gs_Password_hssrv1 );
+    settings.setValue( "UserH", gs_User_hssrv2 );
+    settings.setValue( "PasswordH", gs_Password_hssrv2 );
 
     settings.setValue( "Level1_static", gs_Level1_static );
     settings.setValue( "Level2_static", gs_Level2_static );
@@ -144,8 +144,8 @@ void MainWindow::loadPreferences()
     gs_User_pangaea         = settings.value( "UserP", "" ).toString();
     gs_Password_pangaea     = settings.value( "PasswordP", "" ).toString();
 
-    gs_User_hssrv1          = settings.value( "UserH", "" ).toString();
-    gs_Password_hssrv1      = settings.value( "PasswordH", "" ).toString();
+    gs_User_hssrv2          = settings.value( "UserH", "" ).toString();
+    gs_Password_hssrv2      = settings.value( "PasswordH", "" ).toString();
 
     gs_Level1_static        = settings.value( "Level1_static", "M" ).toString();
     gs_Level2_static        = settings.value( "Level2_static", "M25" ).toString();
