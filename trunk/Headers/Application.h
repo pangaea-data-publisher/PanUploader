@@ -62,6 +62,8 @@ public:
     int         gi_ActionNumber;                 //!< Die ActionNumber wird bei jedem angewandenten Tool um 1 erhoeht.
     int         gi_NumOfProgramStarts;           //!< Anzahl der Programmstarts
 
+    bool        gb_showProgressBar;              //!< Soll der ProgressBar im Fenster unten rechts angezeigt werden?
+
     QStringList gsl_FilenameList;                //!< Liste aller InputDateinamen incl. Pfad.
 
     QString		gs_FilenameFormat;               //!< Bestimmt in die Form des automatisch erzeugten neuen Dateinamens. \%a = aktuelle Actionnumber, \%N = Dateiname.
@@ -178,7 +180,7 @@ private:
     void clearMessage();
     void createActions();
     void createMenus();
-    void createStatusBar();
+    void createStatusBar( const bool showProgressBar );
     void endTool( const int err, const int stopProgress, int &ActionNumber, const QString &FilenameFormat, const int Extension, QStringList &FilenameList, const QString &doneMessage = "Done", const QString &canceledMessage = "Converter was canceled", const bool clearList = false, const bool incActionNumber = true );
     void initFileProgress( const int NumOfFiles, const QString &FilenameIn, const QString &MessageText );
     void initProgress( const int NumOfFiles, const QString &Filename, const QString &MessageText, const int totalNumberOfSteps );
