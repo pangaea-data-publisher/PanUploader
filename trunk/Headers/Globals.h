@@ -3,10 +3,11 @@
     #define _GLOBALS
 
 // Application constants
+
     const QString _PROGRAMDOI_          = "";
     const QString _PROGRAMREADME_       = "http://wiki.pangaea.de/wiki/PanUploader";
 
-    const QString _VERSION_	            = "2.6"; // Version number, 2015-11-18
+    const QString _VERSION_	            = "2.7"; // Version number, 2015-12-28
     const QChar	  _PSEPARATOR_			= '|';
 
     const int	_NOERROR_				= 0;

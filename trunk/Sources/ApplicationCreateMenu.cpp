@@ -157,3 +157,27 @@ void MainWindow::createMenus()
     helpMenu->addSeparator();
     helpMenu->addAction( showHelpAction );
 }
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
+
+void MainWindow::enableMenuItems( const QStringList sl_FilenameList )
+{
+    bool b_containsBinaryFile = containsBinaryFile( sl_FilenameList );
+
+// **********************************************************************************************
+
+    QList<QAction*> scriptMenuActions = scriptMenu->actions();
+
+    if ( b_containsBinaryFile == false )
+    {
+        for ( int i=0; i<scriptMenuActions.count(); ++i )
+            scriptMenuActions.at( i )->setEnabled( true );
+    }
+    else
+    {
+        for ( int i=0; i<scriptMenuActions.count(); ++i )
+            scriptMenuActions.at( i )->setEnabled( false );
+    }
+}
