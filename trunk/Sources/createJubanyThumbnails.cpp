@@ -111,8 +111,9 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     tcmd << "send \"quit\\n\"" << endl;
     tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
 
-//  tcmd << "rm " << s_FilenameIn << endl;
     tcmd << "rm " << s_ScriptFile << endl;
+
+    tcmd << "rm " << s_FilenameIn << endl;
     tcmd << "rm -r images" << endl;
     tcmd << "rm runJubany.sh" << endl;
 #endif
