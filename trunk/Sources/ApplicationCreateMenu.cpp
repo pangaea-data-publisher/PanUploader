@@ -145,11 +145,6 @@ void MainWindow::createMenus()
     scriptMenu->addAction( runCoresScriptAction );
     scriptMenu->addAction( runJubanyScriptAction );
     scriptMenu->addAction( runLinescansScriptAction );
-/*
-    scriptMenu->addSeparator();
-    scriptMenu->addAction( setLastDownloadDateDialogAction );
-    scriptMenu->addAction( getDatesAction );
-*/
 
     helpMenu = menuBar()->addMenu( tr( "&Help" ) );
     helpMenu->addAction( aboutAction );
@@ -177,7 +172,6 @@ void MainWindow::enableMenuItems( const QStringList sl_FilenameList )
     }
     else
     {
-        for ( int i=0; i<scriptMenuActions.count(); ++i )
-            scriptMenuActions.at( i )->setEnabled( false );
+        ;
     }
 }

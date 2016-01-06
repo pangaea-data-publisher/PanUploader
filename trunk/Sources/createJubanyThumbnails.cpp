@@ -113,9 +113,9 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
 
     tcmd << "rm " << s_ScriptFile << endl;
 
-    tcmd << "rm " << s_FilenameIn << endl;
+//  tcmd << "rm " << s_FilenameIn << endl;
     tcmd << "rm -r images" << endl;
-    tcmd << "rm runJubany.sh" << endl;
+//  tcmd << "rm runJubany.sh" << endl;
 #endif
 
 #if defined(Q_OS_WIN)
