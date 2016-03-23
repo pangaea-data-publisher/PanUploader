@@ -175,7 +175,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
     for ( int i=0; i<sl_EventLabelList.count(); i++ )
     {
         QString s_UploadDirectory = UploadDirectory( 0, mode );
-        QString s_PHP_cmd         = "http://www.pangaea.de/PHP";
+        QString s_PHP_cmd         = "https://pangaea.de/PHP";
 
         s_PHP_cmd.append( s_UploadDirectory.replace( "Images/", "" ) );
         s_PHP_cmd.append( tr( ".php?B=" ) );
