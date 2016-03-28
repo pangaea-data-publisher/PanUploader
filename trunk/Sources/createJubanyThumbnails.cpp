@@ -11,6 +11,8 @@
 
 int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QString &s_WorkingDirectory, const QString &s_EasyThumbnail, const QString &s_wget, const QString &s_psftp, const QString &s_UserUpload, const QString &s_PasswordUpload, const QString &s_CommandFile, const QString &s_ScriptFile, const QString &s_LogFile )
 {
+    bool        b_testmode  = false;
+
     int         i           = 0;
     int         n           = 0;
 
@@ -113,9 +115,12 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
 
     tcmd << "rm " << s_ScriptFile << endl;
 
-//  tcmd << "rm " << s_FilenameIn << endl;
-    tcmd << "rm -r images" << endl;
-//  tcmd << "rm runJubany.sh" << endl;
+    if ( b_testmode == false )
+    {
+        tcmd << "rm " << s_FilenameIn << endl;
+        tcmd << "rm -r images" << endl;
+        tcmd << "rm runJubany.sh" << endl;
+    }
 #endif
 
 #if defined(Q_OS_WIN)
@@ -148,9 +153,13 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
 
     tcmd << endl << "cd " << "\"" << QDir::toNativeSeparators( s_WorkingDirectory ) << "\"";
     tcmd << endl << "rd /S /Q images";
-    tcmd << endl << "del /Q *.txt";
-    tcmd << endl << "del /Q *.log";
-    tcmd << endl << "del /Q runJubany.cmd" << endl;
+
+    if ( b_testmode == false )
+    {
+        tcmd << endl << "del /Q *.txt";
+        tcmd << endl << "del /Q *.log";
+        tcmd << endl << "del /Q runJubany.cmd" << endl;
+    }
 #endif
 
 #if defined(Q_OS_LINUX)
