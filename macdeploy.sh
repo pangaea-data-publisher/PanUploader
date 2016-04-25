@@ -49,7 +49,7 @@ cd '/Volumes/PanUploader'
 rm -rf .fseventsd
 mkdir .fseventsd
 touch .fseventsd/no_log
-cd ~/Development/Distribution
+cd ~/Development/Distribution/PanUploader
 
 echo - verify package
 
@@ -57,3 +57,11 @@ codesign -d '/Volumes/PanUploader/PanUploader.app'
 
 echo
 hdiutil detach '/Volumes/PanUploader'
+
+echo - move application
+
+rm -R /Applications/PanUploader.app
+cp -R PanUploader.app /Applications
+cd ~/Development/Distribution
+
+echo - finished
