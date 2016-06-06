@@ -18,12 +18,14 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
                              const bool b_createThumbnails, const bool b_uploadThumbnails, const bool b_uploadImages, const bool b_turnImages,
                              const bool b_runScript )
 {
-    QString s_Dummy = s_EasyThumbnails; s_Dummy = s_wget; s_Dummy = s_psftp;
+    QString   s_Dummy = s_EasyThumbnails; s_Dummy = s_wget; s_Dummy = s_psftp;
 
     QFileInfo fi( sl_FilenameList.at( 0 ) );
 
-    QString   s_CommandFile = fi.absolutePath() + "/" + "runScript.sh";
-    QString   s_ImportFile  = fi.absolutePath() + "/" + "import_datasets.txt";
+    QString   s_CommandFile    = fi.absolutePath() + "/" + "runScript.sh";
+    QString   s_ImportFile     = fi.absolutePath() + "/" + "import_datasets.txt";
+
+    QString   s_EventLabel_old = "";
 
 // **********************************************************************************************
 
@@ -186,7 +188,12 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
         s_PHP_cmd.append( sl_EventLabelList.at( i ).section( "/", 2, 2 ) );  // Level 3 (Site)
         s_PHP_cmd.append( tr( "&ID=%ID_dataSet%" ) ); // ID of the new dataset
 
-        timp << sl_EventLabelList.at( i ).section( "/", 3, 3 ) << "\t" << s_PHP_cmd << endl;
+        if ( sl_EventLabelList.at( i ).section( "/", 3, 3 ) != s_EventLabel_old )
+        {
+            timp << sl_EventLabelList.at( i ).section( "/", 3, 3 ) << "\t" << s_PHP_cmd << endl;
+
+            s_EventLabel_old = sl_EventLabelList.at( i ).section( "/", 3, 3 );
+        }
     }
 
     fimp.close();
