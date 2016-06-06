@@ -2,21 +2,24 @@
 **
 ** Preferences
 ** 2008-12-01, Dr. Rainer Sieger
-** last change: 2009-12-01
+** last change: 2016-06-006
 **
 ****************************************************************/
 
 #include "Application.h"
+#include "simplecrypt.h"
 
 /*! @brief Sichern der Programmeinstellungen */
 
 // **********************************************************************************************
 // **********************************************************************************************
 // **********************************************************************************************
-// 2012-07-03
+// 2016-06-06
 
 void MainWindow::savePreferences()
 {
+    SimpleCrypt crypto( Q_UINT64_C( 0x07cf37a122768de4f ) ); //some random number
+
     #if defined(Q_OS_LINUX)
         gi_Codec = _UTF8_; // UTF-8
         gi_EOL   = _UNIX_;
@@ -67,11 +70,11 @@ void MainWindow::savePreferences()
     settings.setValue( "Wget", gs_wget );
     settings.setValue( "Psftp", gs_psftp );
 
-    settings.setValue( "UserP", gs_User_pangaea );
-    settings.setValue( "PasswordP", gs_Password_pangaea );
+    settings.setValue( "UserP", crypto.encryptToString( gs_User_pangaea ) );
+    settings.setValue( "PasswordP", crypto.encryptToString( gs_Password_pangaea ) );
 
-    settings.setValue( "UserH", gs_User_hssrv2 );
-    settings.setValue( "PasswordH", gs_Password_hssrv2 );
+    settings.setValue( "UserH", crypto.encryptToString( gs_User_hssrv2 ) );
+    settings.setValue( "PasswordH", crypto.encryptToString( gs_Password_hssrv2 ) );
 
     settings.setValue( "Level1_static", gs_Level1_static );
     settings.setValue( "Level2_static", gs_Level2_static );
@@ -109,6 +112,8 @@ void MainWindow::savePreferences()
 
 void MainWindow::loadPreferences()
 {
+    SimpleCrypt crypto( Q_UINT64_C( 0x07cf37a122768de4f ) ); //some random number
+
     #if defined(Q_OS_LINUX)
         QSettings settings( getPreferenceFilename(), QSettings::IniFormat );
     #endif
@@ -141,11 +146,11 @@ void MainWindow::loadPreferences()
     gs_wget                 = settings.value( "Wget", "" ).toString();
     gs_psftp                = settings.value( "Psftp", "" ).toString();
 
-    gs_User_pangaea         = settings.value( "UserP", "" ).toString();
-    gs_Password_pangaea     = settings.value( "PasswordP", "" ).toString();
+    gs_User_pangaea         = crypto.decryptToString( settings.value( "UserP", "" ).toString() );
+    gs_Password_pangaea     = crypto.decryptToString( settings.value( "PasswordP", "" ).toString() );
 
-    gs_User_hssrv2          = settings.value( "UserH", "" ).toString();
-    gs_Password_hssrv2      = settings.value( "PasswordH", "" ).toString();
+    gs_User_hssrv2          = crypto.decryptToString( settings.value( "UserH", "" ).toString() );
+    gs_Password_hssrv2      = crypto.decryptToString( settings.value( "PasswordH", "" ).toString() );
 
     gs_Level1_static        = settings.value( "Level1_static", "M" ).toString();
     gs_Level2_static        = settings.value( "Level2_static", "M25" ).toString();

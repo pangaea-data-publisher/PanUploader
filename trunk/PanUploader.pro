@@ -52,6 +52,7 @@ INCLUDEPATH += ./Headers
 HEADERS = ./Headers/Application.h \
     ./Headers/Globals.h \
     ./Headers/Webfile.h \
+    ./Headers/simplecrypt.h \
     ./Forms/AboutDialog/AboutDialog.h \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.h \
     ./Forms/SetLastDownloadDateDialog/SetLastDownloadDateDialog.h \
@@ -67,6 +68,7 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/getJubanyUpdateList.cpp \
     ./Sources/uploadImages.cpp \
     ./Sources/Webfile.cpp \
+    ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.cpp \
     ./Forms/SetLastDownloadDateDialog/SetLastDownloadDateDialog.cpp \
