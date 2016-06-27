@@ -36,7 +36,7 @@ codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Insti
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/PlugIns/platforms/libqcocoa.dylib'
 codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUpLoader/PanUpLoader.app/Contents/PlugIns/printsupport/libcocoaprintersupport.dylib'
 
-codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUploader/PanUploader.app' # --entitlements './trunk/Resources/PanUploader.entitlements'
+codesign --force --verify --sign 'Developer ID Application: Alfred-Wegener-Institut fur Polar- und Meeresforschung (AWI)' '../../Distribution/PanUploader/PanUploader.app'
 
 echo - mount package
 
