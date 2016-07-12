@@ -22,8 +22,10 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     QFileInfo fi( sl_FilenameList.at( 0 ) );
 
-    QString   s_CommandFile    = fi.absolutePath() + "/" + "runScript.sh";
-    QString   s_ImportFile     = fi.absolutePath() + "/" + "import_datasets.txt";
+    QString   s_RootDir        = fi.absolutePath().section( "/", 0, -2 ) + "/";
+    QString   s_oldPath        = s_RootDir;
+    QString   s_CommandFile    = s_RootDir + "runScript.sh";
+    QString   s_ImportFile     = s_RootDir + "import_datasets.txt";
 
     QString   s_EventLabel_old = "";
 
@@ -40,7 +42,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     if ( ( b_createThumbnails == true ) && ( b_uploadThumbnails == true ) )
     {
-        if ( createDummyFiles( fi.absolutePath() ) != _NOERROR_ )
+        if ( createDummyFiles( s_RootDir ) != _NOERROR_ )
             return( -20 );
     }
 
@@ -68,7 +70,6 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 // **********************************************************************************************
 
     tcmd << "#!/bin/bash" << endl;
-    tcmd << "cd \"" << fi.absolutePath() << "\"" << endl;
 
     if ( b_turnImages == true )
     {
@@ -81,18 +82,33 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     if ( b_createThumbnails == true )
     {
-        tcmd << "mkdir thumbs" << endl;
+        s_oldPath = sl_FilenameList.at( 0 );
 
         for ( int i=0; i<sl_FilenameList.count(); i++ )
         {
+            fi.setFile( sl_FilenameList.at( i ) );
+
             if ( sl_FilenameList.at( i ).contains( "_descr.", Qt::CaseInsensitive ) == false )
             {
+                if ( ( sl_FilenameList.at( i ).endsWith( "jpg" ) == true ) ||
+                     ( sl_FilenameList.at( i ).endsWith( "png" ) == true ) ||
+                     ( sl_FilenameList.at( i ).endsWith( "gif" ) == true ) ||
+                     ( sl_FilenameList.at( i ).endsWith( "tif" ) == true ) )
+                {
+                    if ( s_oldPath != fi.absolutePath() )
+                    {
+                        tcmd << "cd \"" << fi.absolutePath() << "\"" << endl;
+                        tcmd << "mkdir thumbs" << endl;
+
+                        s_oldPath = fi.absolutePath();
+                    }
+                }
+
                 if ( ( sl_FilenameList.at( i ).endsWith( "jpg" ) == true ) || ( sl_FilenameList.at( i ).endsWith( "png" ) == true ) || ( sl_FilenameList.at( i ).endsWith( "gif" ) == true ) )
                     tcmd << QString( "sips -Z %1 \"%2\" --out thumbs" ).arg( qMax( i_ThumbnailWidth, i_ThumbnailHeight ) ).arg( sl_FilenameList.at( i ) ) << endl;
 
                 if ( sl_FilenameList.at( i ).endsWith( "tif" ) == true )
                 {
-                    QFileInfo fi( sl_FilenameList.at( i ) );
                     tcmd << QString( "sips -s format jpeg \"%1\" --out \"%2.jpg\"" ).arg( sl_FilenameList.at( i ) ).arg( fi.completeBaseName() ) << endl;
                     tcmd << QString( "sips -Z %1 \"%2.jpg\" --out thumbs" ).arg( qMax( i_ThumbnailWidth, i_ThumbnailHeight ) ).arg( fi.completeBaseName() ) << endl;
                     tcmd << QString( "rm \"%1.jpg\"" ).arg( fi.completeBaseName() ) << endl;;
@@ -151,21 +167,31 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     if ( ( b_createThumbnails == true ) && ( b_uploadThumbnails == true ) )
     {
-        tcmd << "rm " << _COREDESCRIPTION_FILENAME_ << endl;
-        tcmd << "rm " << _CORELEGEND_FILENAME_ << endl;
-        tcmd << "rm " << _CORELOGGERPROTOKOLL_FILENAME_ << endl;
-        tcmd << "rm " << _CORESECTIONTABLE_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _COREDESCRIPTION_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _CORELEGEND_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _CORELOGGERPROTOKOLL_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _CORESECTIONTABLE_FILENAME_ << endl;
 
-        tcmd << "rm " << _BENTHOSMAP_FILENAME_ << endl;
-        tcmd << "rm " << _BENTHOSTRACK_FILENAME_ << endl;
-        tcmd << "rm " << _BENTHOSBATH_FILENAME_ << endl;
-        tcmd << "rm " << _INFO_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _BENTHOSMAP_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _BENTHOSTRACK_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _BENTHOSBATH_FILENAME_ << endl;
+        tcmd << "rm " << s_RootDir << _INFO_FILENAME_ << endl;
 
-        tcmd << "rm -r thumbs" << endl;
+        s_oldPath = s_RootDir;
+
+        for ( int i=0; i<sl_FilenameList.count(); i++ )
+        {
+            if ( s_oldPath != sl_FilenameList.at( i ).section( "/", 0, -2 ) )
+            {
+                tcmd << "rm -r " << sl_FilenameList.at( i ).section( "/", 0, -2 ) << "/thumbs" << endl;
+
+                s_oldPath = sl_FilenameList.at( i ).section( "/", 0, -2 );
+            }
+        }
     }
 
     if ( b_runScript == true )
-        tcmd << "rm runScript.sh" << endl;
+        tcmd << "rm " << s_CommandFile << endl;
 
     fcmd.close();
 
