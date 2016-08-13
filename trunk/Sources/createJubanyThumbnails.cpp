@@ -282,7 +282,7 @@ void MainWindow::doCreateJubanyThumbnails()
 // **********************************************************************************************
 // **********************************************************************************************
 
-int MainWindow::startProgram( const QString& s_Program, const QString& s_Filename )
+int MainWindow::startProgram( const QString &s_Program, const QString &s_Filename )
 {
     QProcess    process;
     QStringList sl_args;

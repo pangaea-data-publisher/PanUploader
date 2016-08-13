@@ -315,7 +315,7 @@ QString MainWindow::setLocalFile( const QString &s_LocalFileIn )
 // **********************************************************************************************
 // 2013-01-02
 
-QStringList MainWindow::createUploadDirectoryList( const QStringList sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l )
+QStringList MainWindow::createUploadDirectoryList( const QStringList &sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l )
 {
     QStringList sl_UploadDirectoryList;
 
@@ -355,7 +355,7 @@ QStringList MainWindow::createUploadDirectoryList( const QStringList sl_Filename
 // **********************************************************************************************
 // 2013-09-11
 
-QStringList MainWindow::createEventLabelList( const QStringList sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l,const QString &s_Level4_static, const int l4f, const int l4l )
+QStringList MainWindow::createEventLabelList( const QStringList &sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l,const QString &s_Level4_static, const int l4f, const int l4l )
 {
     QStringList sl_EventLabelList;
 
@@ -390,7 +390,7 @@ QStringList MainWindow::createEventLabelList( const QStringList sl_FilenameList,
 // **********************************************************************************************
 // 2013-01-02
 
-QStringList MainWindow::createRemoteFilenameList( const int mode, const QStringList sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l )
+QStringList MainWindow::createRemoteFilenameList( const int mode, const QStringList &sl_FilenameList, const QString &s_Level1_static, const QString &s_Level2_static, const int l2f, const int l2l, const QString &s_Level3_static, const int l3f, const int l3l )
 {
     QStringList sl_RemoteFilenameList;
 

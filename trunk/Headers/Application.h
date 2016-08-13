@@ -121,9 +121,9 @@ public:
     QString UploadDirectory(const int server, const int mode );
     QString setLocalFile( const QString &LocalFileIn );
 
-    QStringList createEventLabelList( const QStringList FilenameList, const QString &Level1_static, const QString &Level2_static, const int l2f, const int l2l, const QString &Level3_static, const int l3f, const int l3l, const QString &Level4_static, const int l4f, const int l4l );
-    QStringList createUploadDirectoryList( const QStringList FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
-    QStringList createRemoteFilenameList( const int mode, const QStringList FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
+    QStringList createEventLabelList( const QStringList &FilenameList, const QString &Level1_static, const QString &Level2_static, const int l2f, const int l2l, const QString &Level3_static, const int l3f, const int l3l, const QString &Level4_static, const int l4f, const int l4l );
+    QStringList createUploadDirectoryList( const QStringList &FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
+    QStringList createRemoteFilenameList( const int mode, const QStringList &FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
 
     int doSetThumbnailOptionsDialog( const int mode, const QString &FilenameIn, QString &Level1_static, QString &Level2_static, int &Level2_first, int &Level2_last, QString &Level3_static, int &Level3_first, int &Level3_last, QString &Level4_static, int &Level4_first, int &Level4_last, int &ImagesTurnAngle, int &ThumbnailWidth, int &ThumbnailHeight, bool &createThumbnails, bool &uploadThumbnails, bool &uploadImages, bool &turnImages, bool &buildScriptOnly );
 
@@ -160,16 +160,16 @@ private slots:
 
 private:
     QStringList expandCommandline();
-    QStringList renameFiles( const QStringList Filename, const QString &searchStr, const QString &replaceStr );
+    QStringList renameFiles( const QStringList &Filename, const QString &searchStr, const QString &replaceStr );
     bool buildFilename( const int ActionNumber, const QString &FilenameFormat, const int Extension, const QString &Filename, QString &FilenameIn, QString &FilenameOut );
-    bool containsBinaryFile( const QStringList FilenameList );
+    bool containsBinaryFile( const QStringList &FilenameList );
     bool existsFirstFile( const int ActionNumber, const QString &FilenameFormat, const int Extension, QStringList &FilenameList );
     bool isEmptyLine( const QString &String );
     bool check7z();
     int NumOfSections( const QString &String );
     int addToFilenameList( QStringList &FilenameList, const QString &Filename, const bool showAllFiles = true, const bool decompressFile = false );
     int calcFileSizeClass( const QString &FilenameIn, const int NumOfFiles, const int lowerLimit = 100, const int upperLimit = 1000 );
-    int copyStringList( const QStringList InStringList, QStringList &OutStringList, const QString &s_Pattern = "*" );
+    int copyStringList( const QStringList &InStringList, QStringList &OutStringList, const QString &s_Pattern = "*" );
     int emptyDir( const QString &Dir );
     int decompressFile( const QString &Filename, const bool delZipFile = false );
     int incFileProgress( const int NumOfFiles, const int FileNumber );
@@ -181,12 +181,12 @@ private:
     void appendItem( QStringList &List, const QString &Item, const QString &SS = "", const QString &RS = "" );
     void compressFile( const QString &FilenameIn );
     void clearFilenameList( int &ActionNumber, QStringList &FilenameList );
-    void clearList( QStringList& List );
+    void clearList( QStringList &List );
     void clearMessage();
     void createActions();
     void createMenus();
     void createStatusBar( const bool showProgressBar );
-    void enableMenuItems( const QStringList FilenameList );
+    void enableMenuItems( const QStringList &FilenameList );
     void endTool( const int err, const int stopProgress, int &ActionNumber, const QString &FilenameFormat, const int Extension, QStringList &FilenameList, const QString &doneMessage = "Done", const QString &canceledMessage = "Converter was canceled", const bool clearList = false, const bool incActionNumber = true );
     void initFileProgress( const int NumOfFiles, const QString &FilenameIn, const QString &MessageText );
     void initProgress( const int NumOfFiles, const QString &Filename, const QString &MessageText, const int totalNumberOfSteps );
@@ -199,10 +199,10 @@ private:
     void setNormalCursor();
     void setStatusBar( const QString &Message = "", const int seconds = 0 );
     void setStatusBarFileInProgress( const QString &Filename, const QString &Message = "", const int i_seconds = 0 );
-    void setWTitle( const int ActionNumber, const QString &FilenameFormat, const int Extension, const QStringList FilenameList );
+    void setWTitle( const int ActionNumber, const QString &FilenameFormat, const int Extension, const QStringList &FilenameList );
     void setWaitCursor();
-    void showFilenameList( const int ActionNumber, const QString &FilenameFormat, const int Extension, const QStringList FilenameList );
-    void showList( const QStringList List );
+    void showFilenameList( const int ActionNumber, const QString &FilenameFormat, const int Extension, const QStringList &FilenameList );
+    void showList( const QStringList &List );
     void showMessage( const QString &Message, QStringList &MessageList );
     void wait( const int msec );
 
