@@ -177,12 +177,13 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
 
 #if defined(Q_OS_MAC)
     QProcess process;
-    QString s_arg = "chmod u+x \"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
+    QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
     process.startDetached( s_arg );
 
     wait( 100 );
 
-    s_arg = "\"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
+    s_arg = "\"" + fcmd.fileName() + "\"";
+
     if ( process.startDetached( s_arg ) == false )
     {
         QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";

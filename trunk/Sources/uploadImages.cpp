@@ -228,7 +228,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     #if defined(Q_OS_MAC)
         QProcess process;
-        QString s_arg = "chmod u+x \"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
+        QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
         process.startDetached( s_arg );
         wait( 100 );
     #endif
