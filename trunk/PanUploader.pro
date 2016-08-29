@@ -30,10 +30,6 @@ macx {
 }
 
 win32 {
-    # OpenSSL
-    LIBS += -LC:/Qt/OpenSSL-Win32/bin -lubsec
-    INCLUDEPATH += C:/Qt/OpenSSL-Win32/include
-
     # Icon
     RC_FILE = ./Resources/Application.rc
 }
@@ -50,7 +46,6 @@ INCLUDEPATH += ./Headers
 
 HEADERS = ./Headers/Application.h \
     ./Headers/Globals.h \
-    ./Headers/Webfile.h \
     ./Headers/simplecrypt.h \
     ./Forms/AboutDialog/AboutDialog.h \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.h \
@@ -66,7 +61,6 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/createDummyFiles.cpp \
     ./Sources/getJubanyUpdateList.cpp \
     ./Sources/uploadImages.cpp \
-    ./Sources/Webfile.cpp \
     ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.cpp \
