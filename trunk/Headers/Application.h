@@ -118,7 +118,6 @@ public:
     int buildScript( const int mode, const QString &User_hssrv2, const QString &Password_hssrv2, const QString &User_pangaea, const QString &Password_pangaea, QStringList &FilenameList, const QString &EasyThumbnails, const QString &wget, const QString &psftp, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last, const QString &Level4_static, const int Level4_first, const int Level4_last, const int ImagesTurnAngle, const int ThumbnailWidth, const int ThumbnailHeight, const bool createThumbnails, const bool uploadThumbnails, const bool uploadImages, const bool turnImages, const bool runScript );
     int startProgram( const QString &Program, const QString &Filename );
 
-    QString getJubanyUpdateList( const QString &lastDate, const QString &WorkingDirectory, const QString &UserUpdateList, const QString &PasswordUpdateList );
     QString UploadDirectory(const int server, const int mode );
     QString setLocalFile( const QString &LocalFileIn );
 
@@ -152,9 +151,9 @@ private slots:
     void clearStatusMessage();
 
     void doSetGlobalOptionsDialog();
-    void doSetLastDownloadDateDialog();
     void doCreateJubanyThumbnails();
     void doBuildBenthosScript();
+    void doBuildOFOSScript();
     void doBuildCoresScript();
     void doBuildLinescansScript();
 
@@ -230,9 +229,9 @@ private:
     QAction *hideWindowAction;
     QAction *setGlobalOptionsDialogAction;
     QAction *exitAction;
-    QAction *setLastDownloadDateDialogAction;
     QAction *getDatesAction;
     QAction *runBenthosScriptAction;
+    QAction *runOFOSScriptAction;
     QAction *runCoresScriptAction;
     QAction *runJubanyScriptAction;
     QAction *runLinescansScriptAction;

@@ -48,21 +48,17 @@ void MainWindow::createActions()
     setGlobalOptionsDialogAction->setShortcut(tr("Ctrl+,"));
     connect(setGlobalOptionsDialogAction, SIGNAL(triggered()), this, SLOT(doSetGlobalOptionsDialog()));
 
-    runBenthosScriptAction = new QAction(tr("&Run Benthos script"), this);
-    runBenthosScriptAction->setShortcut(tr("Ctrl+B"));
+    runBenthosScriptAction = new QAction(tr("Run Benthos script"), this);
     connect(runBenthosScriptAction, SIGNAL(triggered()), this, SLOT(doBuildBenthosScript()));
 
-    runCoresScriptAction = new QAction(tr("&Run Cores script"), this);
-    runCoresScriptAction->setShortcut(tr("Ctrl+C"));
+    runOFOSScriptAction = new QAction(tr("Run Benthos script"), this);
+    connect(runOFOSScriptAction, SIGNAL(triggered()), this, SLOT(doBuildBenthosScript()));
+
+    runCoresScriptAction = new QAction(tr("Run Cores script"), this);
     connect(runCoresScriptAction, SIGNAL(triggered()), this, SLOT(doBuildCoresScript()));
 
-    runLinescansScriptAction = new QAction(tr("&Run Linescans script"), this);
-    runLinescansScriptAction->setShortcut(tr("Ctrl+L"));
+    runLinescansScriptAction = new QAction(tr("Run Linescans script"), this);
     connect(runLinescansScriptAction, SIGNAL(triggered()), this, SLOT(doBuildLinescansScript()));
-
-    setLastDownloadDateDialogAction = new QAction(tr("Set last Jubany download &date..."), this);
-    setLastDownloadDateDialogAction->setShortcut(tr("Ctrl+D"));
-    connect(setLastDownloadDateDialogAction, SIGNAL(triggered()), this, SLOT(doSetLastDownloadDateDialog()));
 
     runJubanyScriptAction = new QAction(tr("&Run Jubany script"), this);
     runJubanyScriptAction->setShortcut(tr("Ctrl+R"));

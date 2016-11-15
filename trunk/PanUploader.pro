@@ -49,7 +49,6 @@ HEADERS = ./Headers/Application.h \
     ./Headers/simplecrypt.h \
     ./Forms/AboutDialog/AboutDialog.h \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.h \
-    ./Forms/SetLastDownloadDateDialog/SetLastDownloadDateDialog.h \
     ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.h
 
 SOURCES = ./Sources/ApplicationInit.cpp \
@@ -63,10 +62,8 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.cpp \
-    ./Forms/SetLastDownloadDateDialog/SetLastDownloadDateDialog.cpp \
     ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.cpp
 
 FORMS = ./Forms/AboutDialog/aboutdialog.ui \
     ./Forms/SetGlobalOptionsDialog/setglobaloptionsdialog.ui \
-    ./Forms/SetLastDownloadDateDialog/setlastdownloaddatedialog.ui \
     ./Forms/SetThumbnailOptionsDialog/setthumbnailoptionsdialog.ui
