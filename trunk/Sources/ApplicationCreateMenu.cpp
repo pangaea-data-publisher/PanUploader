@@ -60,9 +60,11 @@ void MainWindow::createActions()
     runLinescansScriptAction = new QAction(tr("Run Linescans script"), this);
     connect(runLinescansScriptAction, SIGNAL(triggered()), this, SLOT(doBuildLinescansScript()));
 
-    runJubanyScriptAction = new QAction(tr("&Run Jubany script"), this);
-    runJubanyScriptAction->setShortcut(tr("Ctrl+R"));
+    runJubanyScriptAction = new QAction(tr("Run Jubany script"), this);
     connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));
+
+    turnImagesAction = new QAction(tr("Turn images"), this);
+    connect(turnImagesAction, SIGNAL(triggered()), this, SLOT(doTurnImages()));
 
     // Help menu
     aboutAction = new QAction(tr("&About ") + getApplicationName(), this);
@@ -131,6 +133,8 @@ void MainWindow::createMenus()
     scriptMenu->addAction( runCoresScriptAction );
     scriptMenu->addAction( runJubanyScriptAction );
     scriptMenu->addAction( runLinescansScriptAction );
+    scriptMenu->addSeparator();
+    scriptMenu->addAction( turnImagesAction );
 
     helpMenu = menuBar()->addMenu( tr( "&Help" ) );
     helpMenu->addAction( aboutAction );

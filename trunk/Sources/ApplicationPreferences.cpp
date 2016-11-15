@@ -93,7 +93,6 @@ void MainWindow::savePreferences()
     settings.setValue( "CreateThumbnails", gb_createThumbnails );
     settings.setValue( "UploadThumbnails", gb_uploadThumbnails );
     settings.setValue( "UploadImages", gb_uploadImages );
-    settings.setValue( "TurnImages", gb_turnImages );
     settings.setValue( "RunScript", gb_runScript );
 
     settings.endGroup();
@@ -168,7 +167,6 @@ void MainWindow::loadPreferences()
     gb_createThumbnails     = settings.value( "CreateThumbnails", true ).toBool();
     gb_uploadThumbnails     = settings.value( "UploadThumbnails", true ).toBool();
     gb_uploadImages         = settings.value( "UploadImages", true ).toBool();
-    gb_turnImages           = settings.value( "TurnImages", false  ).toBool();
     gb_runScript            = settings.value( "RunScript", false ).toBool();
 
     settings.endGroup();

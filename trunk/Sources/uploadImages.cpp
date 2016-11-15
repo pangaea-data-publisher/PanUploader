@@ -14,9 +14,8 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
                              const QString &s_Level1_static, const QString &s_Level2_static, const int i_Level2_first, const int i_Level2_last,
                              const QString &s_Level3_static, const int i_Level3_first, const int i_Level3_last,
                              const QString &s_Level4_static, const int i_Level4_first, const int i_Level4_last,
-                             const int i_ImagesTurnAngle, const int i_ThumbnailWidth, const int i_ThumbnailHeight,
-                             const bool b_createThumbnails, const bool b_uploadThumbnails, const bool b_uploadImages, const bool b_turnImages,
-                             const bool b_runScript )
+                             const int i_ThumbnailWidth, const int i_ThumbnailHeight, const bool b_createThumbnails,
+                             const bool b_uploadThumbnails, const bool b_uploadImages, const bool b_runScript )
 {
     QString   s_Dummy = s_EasyThumbnails; s_Dummy = s_wget; s_Dummy = s_psftp;
 
@@ -31,7 +30,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
 // **********************************************************************************************
 
-    if ( ( b_createThumbnails == false ) && ( b_uploadImages == false ) && ( b_uploadThumbnails == false ) && ( b_turnImages == false ) )
+    if ( ( b_createThumbnails == false ) && ( b_uploadImages == false ) && ( b_uploadThumbnails == false ) )
         return( _APPBREAK_ );
 
     if ( ( s_User_hssrv2.isEmpty() == true ) || ( s_Password_hssrv2.isEmpty() == true ) )
@@ -70,15 +69,6 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 // **********************************************************************************************
 
     tcmd << "#!/bin/bash" << endl;
-
-    if ( b_turnImages == true )
-    {
-        for ( int i=0; i<sl_FilenameList.count(); i++ )
-        {
-            if ( ( sl_FilenameList.at( i ).endsWith( "jpg" ) == true ) || ( sl_FilenameList.at( i ).endsWith( "png" ) == true ) || ( sl_FilenameList.at( i ).endsWith( "gif" ) == true ) || ( sl_FilenameList.at( i ).endsWith( "tif" ) == true ) )
-                tcmd << QString( "sips -r %1 \"%2\"" ).arg( i_ImagesTurnAngle ).arg( sl_FilenameList.at( i ) ) << endl;
-        }
-    }
 
     if ( b_createThumbnails == true )
     {
@@ -524,8 +514,8 @@ int MainWindow::doBuildScript( const int mode )
 
     if (  gsl_FilenameList.count() > 0 )
     {
-        if ( doSetThumbnailOptionsDialog( mode, gsl_FilenameList.at( 0 ), gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ImagesTurnAngle, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_turnImages, gb_runScript ) == QDialog::Accepted )
-            err = buildScript( mode, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, gsl_FilenameList, gs_EasyThumbnails, gs_wget, gs_psftp, gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ImagesTurnAngle, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_turnImages, gb_runScript );
+        if ( doSetThumbnailOptionsDialog( mode, gsl_FilenameList.at( 0 ), gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_runScript ) == QDialog::Accepted )
+            err = buildScript( mode, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, gsl_FilenameList, gs_EasyThumbnails, gs_wget, gs_psftp, gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_runScript );
         else
             err = _CHOOSEABORTED_;
     }
@@ -573,6 +563,10 @@ void MainWindow::doBuildCoresScript()
 
     onError( err );
 }
+
+// **********************************************************************************************
+// **********************************************************************************************
+// **********************************************************************************************
 
 void MainWindow::doBuildLinescansScript()
 {

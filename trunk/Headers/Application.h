@@ -106,7 +106,6 @@ public:
     int         gi_ThumbnailHeight;
     int         gi_ImagesTurnAngle;
 
-    bool        gb_turnImages;
     bool        gb_createThumbnails;
     bool        gb_uploadThumbnails;
     bool        gb_uploadImages;
@@ -115,7 +114,7 @@ public:
     int doBuildScript( const int mode );
     int createDummyFiles( const QString &WorkingDirectory );
     int createJubanyThumbnails( const QString &FilenameIn, const QString &WorkingDirectory, const QString &EasyThumbnails, const QString &wget, const QString &psftp, const QString &UserUpload, const QString &PasswordUpload, const QString &CommandFile, const QString &ScriptFile, const QString &LogFile );
-    int buildScript( const int mode, const QString &User_hssrv2, const QString &Password_hssrv2, const QString &User_pangaea, const QString &Password_pangaea, QStringList &FilenameList, const QString &EasyThumbnails, const QString &wget, const QString &psftp, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last, const QString &Level4_static, const int Level4_first, const int Level4_last, const int ImagesTurnAngle, const int ThumbnailWidth, const int ThumbnailHeight, const bool createThumbnails, const bool uploadThumbnails, const bool uploadImages, const bool turnImages, const bool runScript );
+    int buildScript( const int mode, const QString &User_hssrv2, const QString &Password_hssrv2, const QString &User_pangaea, const QString &Password_pangaea, QStringList &FilenameList, const QString &EasyThumbnails, const QString &wget, const QString &psftp, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last, const QString &Level4_static, const int Level4_first, const int Level4_last, const int ThumbnailWidth, const int ThumbnailHeight, const bool createThumbnails, const bool uploadThumbnails, const bool uploadImages, const bool runScript );
     int startProgram( const QString &Program, const QString &Filename );
 
     QString UploadDirectory(const int server, const int mode );
@@ -125,7 +124,8 @@ public:
     QStringList createUploadDirectoryList( const QStringList &FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
     QStringList createRemoteFilenameList( const int mode, const QStringList &FilenameList, const QString &Level1_static, const QString &Level2_static, const int Level2_first, const int Level2_last, const QString &Level3_static, const int Level3_first, const int Level3_last );
 
-    int doSetThumbnailOptionsDialog( const int mode, const QString &FilenameIn, QString &Level1_static, QString &Level2_static, int &Level2_first, int &Level2_last, QString &Level3_static, int &Level3_first, int &Level3_last, QString &Level4_static, int &Level4_first, int &Level4_last, int &ImagesTurnAngle, int &ThumbnailWidth, int &ThumbnailHeight, bool &createThumbnails, bool &uploadThumbnails, bool &uploadImages, bool &turnImages, bool &buildScriptOnly );
+    int doSetThumbnailOptionsDialog( const int mode, const QString &FilenameIn, QString &Level1_static, QString &Level2_static, int &Level2_first, int &Level2_last, QString &Level3_static, int &Level3_first, int &Level3_last, QString &Level4_static, int &Level4_first, int &Level4_last, int &ThumbnailWidth, int &ThumbnailHeight, bool &createThumbnails, bool &uploadThumbnails, bool &uploadImages, bool &buildScriptOnly );
+    int doSetTurnImagesOptionsDialog( int &ImagesTurnAngle );
 
 protected:
     void dragEnterEvent( QDragEnterEvent *event );
@@ -151,11 +151,14 @@ private slots:
     void clearStatusMessage();
 
     void doSetGlobalOptionsDialog();
-    void doCreateJubanyThumbnails();
+
     void doBuildBenthosScript();
     void doBuildOFOSScript();
     void doBuildCoresScript();
     void doBuildLinescansScript();
+    void doCreateJubanyThumbnails();
+
+    void doTurnImages();
 
 private:
     QStringList expandCommandline();
@@ -235,6 +238,7 @@ private:
     QAction *runCoresScriptAction;
     QAction *runJubanyScriptAction;
     QAction *runLinescansScriptAction;
+    QAction *turnImagesAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
     QAction *showHelpAction;

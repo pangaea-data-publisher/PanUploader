@@ -49,7 +49,8 @@ HEADERS = ./Headers/Application.h \
     ./Headers/simplecrypt.h \
     ./Forms/AboutDialog/AboutDialog.h \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.h \
-    ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.h
+    ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.h \
+    ./Forms/SetTurnImagesOptionsDialog/SetTurnImagesOptionsDialog.h
 
 SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/ApplicationMainWindow.cpp \
@@ -58,12 +59,15 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/ApplicationCreateMenu.cpp \
     ./Sources/createJubanyThumbnails.cpp \
     ./Sources/createDummyFiles.cpp \
+    ./Sources/turnImages.cpp \
     ./Sources/uploadImages.cpp \
     ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.cpp \
-    ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.cpp
+    ./Forms/SetThumbnailOptionsDialog/SetThumbnailOptionsDialog.cpp \
+    ./Forms/SetTurnImagesOptionsDialog/SetTurnImagesOptionsDialog.cpp
 
 FORMS = ./Forms/AboutDialog/aboutdialog.ui \
     ./Forms/SetGlobalOptionsDialog/setglobaloptionsdialog.ui \
-    ./Forms/SetThumbnailOptionsDialog/setthumbnailoptionsdialog.ui
+    ./Forms/SetThumbnailOptionsDialog/setthumbnailoptionsdialog.ui \
+    ./Forms/SetTurnImagesOptionsDialog/setturnimagesoptionsdialog.ui

@@ -9,8 +9,7 @@
 
 int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_FilenameIn, QString &s_Level1_static, QString &s_Level2_static, int &i_Level2_first, int &i_Level2_last,
                                              QString &s_Level3_static, int &i_Level3_first, int &i_Level3_last, QString &s_Level4_static, int &i_Level4_first, int &i_Level4_last,
-                                             int &i_ImagesTurnAngle, int &i_ThumbnailWidth, int &i_ThumbnailHeight, bool &b_createThumbnails, bool &b_uploadThumbnails, bool &b_uploadImages,
-                                             bool &b_turnImages, bool &b_runScript )
+                                             int &i_ThumbnailWidth, int &i_ThumbnailHeight, bool &b_createThumbnails, bool &b_uploadThumbnails, bool &b_uploadImages, bool &b_runScript )
 {
     int i_DialogResult  = QDialog::Rejected;
 
@@ -52,14 +51,12 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
     dialog.Level4_first_spinBox->setValue( i_Level4_first );
     dialog.Level4_last_spinBox->setValue( i_Level4_last );
 
-    dialog.TurnAngle_spinBox->setValue( i_ImagesTurnAngle );
     dialog.Width_spinBox->setValue( i_ThumbnailWidth );
     dialog.Height_spinBox->setValue( i_ThumbnailHeight );
 
     dialog.CreateThumbnails_checkBox->setChecked( b_createThumbnails );
     dialog.UploadThumbnails_checkBox->setChecked( b_uploadThumbnails );
     dialog.UploadImages_checkBox->setChecked( b_uploadImages );
-    dialog.TurnImages_checkBox->setChecked( b_turnImages );
     dialog.RunScript_checkBox->setChecked( b_runScript );
 
     dialog.OK_pushButton->setWhatsThis( "Set new parameter title orientation" );
@@ -86,13 +83,11 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
         s_Level4_static     = dialog.Level4_lineEdit->text();
         i_Level4_first      = dialog.Level4_first_spinBox->value();
         i_Level4_last       = dialog.Level4_last_spinBox->value();
-        i_ImagesTurnAngle   = dialog.TurnAngle_spinBox->value();
         i_ThumbnailWidth    = dialog.Width_spinBox->value();
         i_ThumbnailHeight   = dialog.Height_spinBox->value();
         b_createThumbnails  = dialog.CreateThumbnails_checkBox->isChecked();
         b_uploadThumbnails  = dialog.UploadThumbnails_checkBox->isChecked();
         b_uploadImages      = dialog.UploadImages_checkBox->isChecked();
-        b_turnImages        = dialog.TurnImages_checkBox->isChecked();
         b_runScript         = dialog.RunScript_checkBox->isChecked();
         break;
 
@@ -121,7 +116,6 @@ SetThumbnailOptionsDialog::SetThumbnailOptionsDialog( QWidget *parent ) : QDialo
     Level3_first_spinBox->setRange( 0, 250 );
     Level3_last_spinBox->setRange( 0, 250 );
 
-    TurnAngle_spinBox->setRange( 0, 359 );
     Width_spinBox->setRange( 50, 1500 );
     Height_spinBox->setRange( 50, 1500 );
 
@@ -166,14 +160,12 @@ void SetThumbnailOptionsDialog::clearAll()
     Level4_first_spinBox->setValue( 0 );
     Level4_last_spinBox->setValue( 0 );
 
-    TurnAngle_spinBox->setValue( 0 );
     Width_spinBox->setValue( 250 );
     Height_spinBox->setValue( 250 );
 
     CreateThumbnails_checkBox->setChecked( false );
     UploadThumbnails_checkBox->setChecked( false );
     UploadImages_checkBox->setChecked( false );
-    TurnImages_checkBox->setChecked( false );
     RunScript_checkBox->setChecked( false );
 }
 

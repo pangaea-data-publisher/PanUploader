@@ -288,39 +288,6 @@
      </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Turn images</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_4">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_9">
-        <property name="text">
-         <string>Angle:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QSpinBox" name="TurnAngle_spinBox">
-        <property name="maximum">
-         <number>359</number>
-        </property>
-        <property name="singleStep">
-         <number>90</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QLabel" name="label_10">
-        <property name="text">
-         <string>degree clockwise</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
    <item row="3" column="0" colspan="2">
     <widget class="QGroupBox" name="Options_groupBox">
      <property name="title">
@@ -335,27 +302,20 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QCheckBox" name="TurnImages_checkBox">
-        <property name="text">
-         <string>turn images</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
        <widget class="QCheckBox" name="UploadThumbnails_checkBox">
         <property name="text">
          <string>upload thumbnails</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="0" column="2">
        <widget class="QCheckBox" name="UploadImages_checkBox">
         <property name="text">
          <string>upload images</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="2">
+      <item row="1" column="0">
        <widget class="QCheckBox" name="RunScript_checkBox">
         <property name="text">
          <string>run script</string>
@@ -427,12 +387,11 @@
   <tabstop>Level4_last_spinBox</tabstop>
   <tabstop>Width_spinBox</tabstop>
   <tabstop>Height_spinBox</tabstop>
-  <tabstop>TurnAngle_spinBox</tabstop>
   <tabstop>CreateThumbnails_checkBox</tabstop>
   <tabstop>UploadThumbnails_checkBox</tabstop>
-  <tabstop>TurnImages_checkBox</tabstop>
   <tabstop>UploadImages_checkBox</tabstop>
   <tabstop>RunScript_checkBox</tabstop>
+  <tabstop>Clear_pushButton</tabstop>
   <tabstop>OK_pushButton</tabstop>
   <tabstop>Cancel_pushButton</tabstop>
  </tabstops>
