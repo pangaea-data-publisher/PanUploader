@@ -27,6 +27,9 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
     case _BENTHOS_:
         dialog.PartOfPath->setText( tr( ".../Images/Benthos/" ) );
         break;
+    case _OFOS_:
+        dialog.PartOfPath->setText( tr( ".../Images/OFOS/" ) );
+        break;
     case _CORES_:
         dialog.PartOfPath->setText( tr( ".../Images/Cores/" ) );
         break;
@@ -124,6 +127,7 @@ SetThumbnailOptionsDialog::SetThumbnailOptionsDialog( QWidget *parent ) : QDialo
 
     connect(OK_pushButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(Cancel_pushButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(Clear_pushButton, SIGNAL(clicked()), this, SLOT(clearAll()));
 
     connect(Level1_lineEdit, SIGNAL(textChanged(QString)), this, SLOT(changePathLineEdit(QString)));
     connect(Level2_lineEdit, SIGNAL(textChanged(QString)), this, SLOT(changePathLineEdit(QString)));
@@ -143,6 +147,34 @@ SetThumbnailOptionsDialog::SetThumbnailOptionsDialog( QWidget *parent ) : QDialo
     connect(Level3_last_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setLastCharValue(int)));
     connect(Level4_first_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setLastCharValue(int)));
     connect(Level4_last_spinBox, SIGNAL(valueChanged(int)), this, SLOT(setLastCharValue(int)));
+}
+
+// ****************************************************************************
+// ****************************************************************************
+// ****************************************************************************
+
+void SetThumbnailOptionsDialog::clearAll()
+{
+    Level1_lineEdit->setText( "" );
+    Level2_lineEdit->setText( "" );
+    Level2_first_spinBox->setValue( 0 );
+    Level2_last_spinBox->setValue( 0 );
+    Level3_lineEdit->setText( "" );
+    Level3_first_spinBox->setValue( 0 );
+    Level3_last_spinBox->setValue( 0 );
+    Level4_lineEdit->setText( "" );
+    Level4_first_spinBox->setValue( 0 );
+    Level4_last_spinBox->setValue( 0 );
+
+    TurnAngle_spinBox->setValue( 0 );
+    Width_spinBox->setValue( 250 );
+    Height_spinBox->setValue( 250 );
+
+    CreateThumbnails_checkBox->setChecked( false );
+    UploadThumbnails_checkBox->setChecked( false );
+    UploadImages_checkBox->setChecked( false );
+    TurnImages_checkBox->setChecked( false );
+    RunScript_checkBox->setChecked( false );
 }
 
 // ****************************************************************************

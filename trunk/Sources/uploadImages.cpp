@@ -494,6 +494,9 @@ QString MainWindow::UploadDirectory( const int server, const int mode )
     case _BENTHOS_:
         s_UploadDirectory.append( "/Images/Benthos" );
         break;
+    case _OFOS_:
+        s_UploadDirectory.append( "/Images/OFOS" );
+        break;
     case _CORES_:
         s_UploadDirectory.append( "/Images/Cores" );
         break;

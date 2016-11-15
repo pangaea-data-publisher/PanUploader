@@ -51,8 +51,8 @@ void MainWindow::createActions()
     runBenthosScriptAction = new QAction(tr("Run Benthos script"), this);
     connect(runBenthosScriptAction, SIGNAL(triggered()), this, SLOT(doBuildBenthosScript()));
 
-    runOFOSScriptAction = new QAction(tr("Run Benthos script"), this);
-    connect(runOFOSScriptAction, SIGNAL(triggered()), this, SLOT(doBuildBenthosScript()));
+    runOFOSScriptAction = new QAction(tr("Run OFOS script"), this);
+    connect(runOFOSScriptAction, SIGNAL(triggered()), this, SLOT(doBuildOFOSScript()));
 
     runCoresScriptAction = new QAction(tr("Run Cores script"), this);
     connect(runCoresScriptAction, SIGNAL(triggered()), this, SLOT(doBuildCoresScript()));
@@ -127,6 +127,7 @@ void MainWindow::createMenus()
 
     scriptMenu = menuBar()->addMenu( tr( "&Script" ) );
     scriptMenu->addAction( runBenthosScriptAction );
+    scriptMenu->addAction( runOFOSScriptAction );
     scriptMenu->addAction( runCoresScriptAction );
     scriptMenu->addAction( runJubanyScriptAction );
     scriptMenu->addAction( runLinescansScriptAction );

@@ -18,6 +18,7 @@ private slots:
     void setLastCharValue(int);
     void changePathSpinBox(int);
     void changePathLineEdit(QString);
+    void clearAll();
 };
 
 #endif
