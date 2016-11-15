@@ -151,7 +151,6 @@ private slots:
     void about();
     void clearStatusMessage();
 
-    void doGetDates();
     void doSetGlobalOptionsDialog();
     void doSetLastDownloadDateDialog();
     void doCreateJubanyThumbnails();

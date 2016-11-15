@@ -64,10 +64,6 @@ void MainWindow::createActions()
     setLastDownloadDateDialogAction->setShortcut(tr("Ctrl+D"));
     connect(setLastDownloadDateDialogAction, SIGNAL(triggered()), this, SLOT(doSetLastDownloadDateDialog()));
 
-    getDatesAction = new QAction(tr("&Get new Jubany dates"), this);
-    getDatesAction->setShortcut(tr("Ctrl+G"));
-    connect(getDatesAction, SIGNAL(triggered()), this, SLOT(doGetDates()));
-
     runJubanyScriptAction = new QAction(tr("&Run Jubany script"), this);
     runJubanyScriptAction->setShortcut(tr("Ctrl+R"));
     connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));

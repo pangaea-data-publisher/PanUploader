@@ -59,7 +59,6 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/ApplicationCreateMenu.cpp \
     ./Sources/createJubanyThumbnails.cpp \
     ./Sources/createDummyFiles.cpp \
-    ./Sources/getJubanyUpdateList.cpp \
     ./Sources/uploadImages.cpp \
     ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \

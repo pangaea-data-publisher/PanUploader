@@ -84,19 +84,6 @@ MainWindow::MainWindow( QWidget *parent ) : QMainWindow( parent )
 
 // **********************************************************************************************
 
-    gsl_FilenameList = expandCommandline();
-
-    if ( gsl_FilenameList.count() > 0 )
-    {
-        if ( gsl_FilenameList.at( 0 ) == "/auto" )
-        {
-            doGetDates();
-            doCreateJubanyThumbnails();
-        }
-    }
-
-// **********************************************************************************************
-
     setWTitle( gi_ActionNumber, gs_FilenameFormat, gi_Extension, gsl_FilenameList );
     setStatusBar( tr( "Ready" ), 2 );
     setNormalCursor();

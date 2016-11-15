@@ -7,7 +7,7 @@
     const QString _PROGRAMDOI_          = "";
     const QString _PROGRAMREADME_       = "https://wiki.pangaea.de/wiki/PanUploader";
 
-    const QString _VERSION_             = "2.9"; // Version number, 2016-08-28
+    const QString _VERSION_             = "2.10"; // Version number, 2016-11-15
     const QChar   _PSEPARATOR_          = '|';
 
     const int   _NOERROR_               = 0;
