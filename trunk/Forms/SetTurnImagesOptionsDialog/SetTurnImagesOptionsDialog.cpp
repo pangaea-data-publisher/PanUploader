@@ -33,7 +33,7 @@ int MainWindow::doSetTurnImagesOptionsDialog( int &i_ImagesTurnAngle )
     switch ( i_DialogResult )
     {
     case QDialog::Accepted:
-        i_ImagesTurnAngle   = dialog.ImagesTurnAngle_spinBox->value();
+        i_ImagesTurnAngle = dialog.ImagesTurnAngle_spinBox->value();
         break;
 
     case QDialog::Rejected:
@@ -56,12 +56,14 @@ SetTurnImagesOptionsDialog::SetTurnImagesOptionsDialog( QWidget *parent ) : QDia
 {
     setupUi( this );
 
-    ImagesTurnAngle_spinBox->setRange( 90, 270 );
+    ImagesTurnAngle_spinBox->setRange( -180, 180 );
 
     connect(ImagesTurnAngle_spinBox, SIGNAL(valueChanged(int)), this, SLOT(enableOKButton(int)));
 
     connect(OK_pushButton, SIGNAL(clicked()), this, SLOT(accept()));
     connect(Cancel_pushButton, SIGNAL(clicked()), this, SLOT(reject()));
+
+    enableOKButton( 0 );
 }
 
 // ****************************************************************************

@@ -11,9 +11,9 @@
 
 void MainWindow::doTurnImages()
 {
-    int         err       = 0;
-
-    QString     s_arg     = "";
+    int         i            = 0;
+    int         err          = 0;
+    int         stopProgress = 0;
 
     QProcess    process;
 
@@ -25,16 +25,38 @@ void MainWindow::doTurnImages()
     {
         if ( doSetTurnImagesOptionsDialog( gi_ImagesTurnAngle ) == QDialog::Accepted )
         {
-            for ( int i=0; i<gsl_FilenameList.count(); i++ )
-            {
-                if ( ( gsl_FilenameList.at( i ).endsWith( "jpg" ) == true ) || ( gsl_FilenameList.at( i ).endsWith( "png" ) == true ) || ( gsl_FilenameList.at( i ).endsWith( "gif" ) == true ) || ( gsl_FilenameList.at( i ).endsWith( "tif" ) == true ) )
-                {
-                    s_arg = QString( "sips -r %1 \"%2\"" ).arg( gi_ImagesTurnAngle ).arg( gsl_FilenameList.at( i ) );
+            initFileProgress( gsl_FilenameList.count(), gsl_FilenameList.at( 0 ), tr( "Turn images..." ) );
 
-                    process.start( s_arg );
+            while ( ( i < gsl_FilenameList.count() ) && ( err == _NOERROR_ ) && ( stopProgress != _APPBREAK_ ) )
+            {
+                if ( ( gsl_FilenameList.at( i ).endsWith( "jpg" ) == true )
+                     || ( gsl_FilenameList.at( i ).endsWith( "png" ) == true )
+                     || ( gsl_FilenameList.at( i ).endsWith( "gif" ) == true )
+                     || ( gsl_FilenameList.at( i ).endsWith( "tif" ) == true ) )
+                {
+                    switch ( gi_ImagesTurnAngle )
+                    {
+                    case -180:
+                    case -90:
+                        process.start( QString( "sips -r %1 \"%2\"" ).arg( gi_ImagesTurnAngle + 360 ).arg( gsl_FilenameList.at( i ) ) );
+                        break;
+
+                    case 90:
+                    case 180:
+                        process.start( QString( "sips -r %1 \"%2\"" ).arg( gi_ImagesTurnAngle ).arg( gsl_FilenameList.at( i ) ) );
+                        break;
+
+                    default:
+                        break;
+                    }
+
                     process.waitForFinished( -1 );
                 }
+
+                stopProgress = incFileProgress( gsl_FilenameList.count(), ++i );
             }
+
+            resetFileProgress( gsl_FilenameList.count() );
         }
         else
             err = _CHOOSEABORTED_;
@@ -44,10 +66,9 @@ void MainWindow::doTurnImages()
         err = _CHOOSEABORTED_;
     }
 
-    if ( err == _NOERROR_ )
-        err = _DONE_;
-
 // **********************************************************************************************
+
+    endTool( err, stopProgress, gi_ActionNumber, gs_FilenameFormat, gi_Extension, gsl_FilenameList, tr( "Done" ), tr( "Turning images was canceled" ), false, false );
 
     onError( err );
 }

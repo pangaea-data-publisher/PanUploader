@@ -17,30 +17,30 @@
 void MainWindow::createActions()
 {
 // File menu
-    newWindowAction = new QAction(tr("&New window"), this);
+    newWindowAction = new QAction(tr("New window"), this);
     newWindowAction->setShortcut(tr("Ctrl+N"));
     connect(newWindowAction, SIGNAL(triggered()), this, SLOT(newWindow()));
 
-    openFileAction = new QAction(tr("&Open..."), this);
+    openFileAction = new QAction(tr("Open..."), this);
     openFileAction->setShortcut(tr("Ctrl+O"));
     connect(openFileAction, SIGNAL(triggered()), this, SLOT(chooseFiles()));
 
-    openFolderAction = new QAction(tr("Select &Folder..."), this);
+    openFolderAction = new QAction(tr("Select Folder..."), this);
     openFolderAction->setShortcut(tr("Ctrl+F"));
     connect(openFolderAction, SIGNAL(triggered()), this, SLOT(chooseFolder()));
 
-    saveAction = new QAction(tr("&Save"), this);
+    saveAction = new QAction(tr("Save"), this);
     saveAction->setShortcut(tr("Ctrl+S"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(saveFile()));
 
-    saveAsAction = new QAction(tr("Save &As..."), this);
+    saveAsAction = new QAction(tr("Save As..."), this);
     connect(saveAsAction, SIGNAL(triggered()), this, SLOT(saveFileAs()));
 
-    hideWindowAction = new QAction(tr("&Close window"), this);
+    hideWindowAction = new QAction(tr("Close window"), this);
     hideWindowAction->setShortcut(tr("Ctrl+W"));
     connect(hideWindowAction, SIGNAL(triggered()), this, SLOT(hideWindow()));
 
-    exitAction = new QAction(tr("&Quit"), this);
+    exitAction = new QAction(tr("Quit"), this);
     exitAction->setShortcut(tr("Ctrl+Q"));
     connect(exitAction, SIGNAL(triggered()), this, SLOT(exitApplication()));
 
@@ -48,32 +48,32 @@ void MainWindow::createActions()
     setGlobalOptionsDialogAction->setShortcut(tr("Ctrl+,"));
     connect(setGlobalOptionsDialogAction, SIGNAL(triggered()), this, SLOT(doSetGlobalOptionsDialog()));
 
-    runBenthosScriptAction = new QAction(tr("Run Benthos script"), this);
+    runBenthosScriptAction = new QAction(tr("Run Benthos script..."), this);
     connect(runBenthosScriptAction, SIGNAL(triggered()), this, SLOT(doBuildBenthosScript()));
 
-    runOFOSScriptAction = new QAction(tr("Run OFOS script"), this);
+    runOFOSScriptAction = new QAction(tr("Run OFOS script..."), this);
     connect(runOFOSScriptAction, SIGNAL(triggered()), this, SLOT(doBuildOFOSScript()));
 
-    runCoresScriptAction = new QAction(tr("Run Cores script"), this);
+    runCoresScriptAction = new QAction(tr("Run Cores script..."), this);
     connect(runCoresScriptAction, SIGNAL(triggered()), this, SLOT(doBuildCoresScript()));
 
-    runLinescansScriptAction = new QAction(tr("Run Linescans script"), this);
+    runLinescansScriptAction = new QAction(tr("Run Linescans script..."), this);
     connect(runLinescansScriptAction, SIGNAL(triggered()), this, SLOT(doBuildLinescansScript()));
 
-    runJubanyScriptAction = new QAction(tr("Run Jubany script"), this);
+    runJubanyScriptAction = new QAction(tr("Run Jubany script..."), this);
     connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));
 
-    turnImagesAction = new QAction(tr("Turn images"), this);
+    turnImagesAction = new QAction(tr("Turn images..."), this);
     connect(turnImagesAction, SIGNAL(triggered()), this, SLOT(doTurnImages()));
 
     // Help menu
-    aboutAction = new QAction(tr("&About ") + getApplicationName(), this);
+    aboutAction = new QAction(tr("About ") + getApplicationName(), this);
     connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
 
-    aboutQtAction = new QAction(tr("About &Qt"), this);
+    aboutQtAction = new QAction(tr("About Qt"), this);
     connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
 
-    showHelpAction = new QAction(getApplicationName() + tr(" &Help"), this);
+    showHelpAction = new QAction(getApplicationName() + tr("Help"), this);
     showHelpAction->setShortcut(tr("F1"));
     connect(showHelpAction, SIGNAL(triggered()), this, SLOT(displayHelp()));
 
