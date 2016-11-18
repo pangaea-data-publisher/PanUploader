@@ -17,9 +17,6 @@ public:
 
 private slots:
     void browseWorkingDirectoryDialog();
-    void browseEasyThumbnailsProgramDialog();
-    void browseWgetProgramDialog();
-    void browsePSftpProgramDialog();
 };
 
 #endif

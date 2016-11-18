@@ -16,7 +16,7 @@ int MainWindow::createJubanyThumbnails( const QString &s_FilenameIn, const QStri
     int         i           = 0;
     int         n           = 0;
 
-    QString     s_UrlUpload = "/pangaea/htdocs/pangaea-family/store/Images/Documentation";
+    QString     s_UrlUpload = "/pangaea/store/Images/Documentation";
 
     QStringList sl_Input;
 

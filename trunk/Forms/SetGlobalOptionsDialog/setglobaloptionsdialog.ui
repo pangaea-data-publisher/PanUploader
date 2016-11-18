@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>541</width>
-    <height>479</height>
+    <width>521</width>
+    <height>331</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -23,89 +23,7 @@
    <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
-   <item row="4" column="0">
-    <layout class="QHBoxLayout">
-     <item>
-      <spacer>
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="OK_pushButton">
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>0</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>&amp;OK</string>
-       </property>
-       <property name="default">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="Cancel_pushButton">
-       <property name="text">
-        <string>&amp;Cancel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="0" column="0">
-    <widget class="QGroupBox" name="LocalImagesDirectory_groupBox">
-     <property name="title">
-      <string>Local working directory</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Local directory:</string>
-        </property>
-        <property name="buddy">
-         <cstring>WorkingDirectory_lineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="WorkingDirectory_lineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="browseWorkingDirectory_pushButton">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="3" column="0">
+   <item row="2" column="0">
     <widget class="QGroupBox" name="ThumbnailServerAccount_groupBox">
      <property name="title">
       <string>Thumbnail server account (store.pangaea.de)</string>
@@ -171,120 +89,6 @@
     </widget>
    </item>
    <item row="1" column="0">
-    <widget class="QGroupBox" name="Programs_groupBox">
-     <property name="title">
-      <string>Programs</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
-        <property name="text">
-         <string>EasyThumbnails:</string>
-        </property>
-        <property name="buddy">
-         <cstring>EasyThumbnailsProgram_lineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="EasyThumbnailsProgram_lineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
-       <widget class="QPushButton" name="browseEasyThumbnailsProgram_pushButton">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_7">
-        <property name="text">
-         <string>wget:</string>
-        </property>
-        <property name="buddy">
-         <cstring>wgetProgram_lineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="wgetProgram_lineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="browseWgetProgram_pushButton">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="psftpProgram_lineEdit">
-        <property name="enabled">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="dragEnabled">
-         <bool>false</bool>
-        </property>
-        <property name="readOnly">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2">
-       <widget class="QPushButton" name="browsePSftpProgram_pushButton">
-        <property name="text">
-         <string>Browse...</string>
-        </property>
-        <property name="autoDefault">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="label_8">
-        <property name="text">
-         <string>psftp:</string>
-        </property>
-        <property name="buddy">
-         <cstring>psftpProgram_lineEdit</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0">
     <widget class="QGroupBox" name="UpdateListAccount_groupBox">
      <property name="title">
       <string>Update list account (hssrv2.awi.de)</string>
@@ -349,17 +153,93 @@
      </layout>
     </widget>
    </item>
+   <item row="0" column="0">
+    <widget class="QGroupBox" name="LocalImagesDirectory_groupBox">
+     <property name="title">
+      <string>Local working directory</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Local directory:</string>
+        </property>
+        <property name="buddy">
+         <cstring>WorkingDirectory_lineEdit</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="WorkingDirectory_lineEdit">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="dragEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="browseWorkingDirectory_pushButton">
+        <property name="text">
+         <string>Browse...</string>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <layout class="QHBoxLayout">
+     <item>
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="OK_pushButton">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>&amp;OK</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="Cancel_pushButton">
+       <property name="text">
+        <string>&amp;Cancel</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
   </layout>
  </widget>
  <tabstops>
   <tabstop>WorkingDirectory_lineEdit</tabstop>
   <tabstop>browseWorkingDirectory_pushButton</tabstop>
-  <tabstop>EasyThumbnailsProgram_lineEdit</tabstop>
-  <tabstop>browseEasyThumbnailsProgram_pushButton</tabstop>
-  <tabstop>wgetProgram_lineEdit</tabstop>
-  <tabstop>browseWgetProgram_pushButton</tabstop>
-  <tabstop>psftpProgram_lineEdit</tabstop>
-  <tabstop>browsePSftpProgram_pushButton</tabstop>
   <tabstop>User_hssrv2_lineEdit</tabstop>
   <tabstop>Password_hssrv2_lineEdit</tabstop>
   <tabstop>User_pangaea_lineEdit</tabstop>

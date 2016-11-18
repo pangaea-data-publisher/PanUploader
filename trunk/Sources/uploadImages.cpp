@@ -145,7 +145,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
         for ( int i=0; i<sl_FilenameList.count(); i++ )
         {
             tcmd << "expect \"sftp> \"" << endl;
-            tcmd << "send \"put \\\"" << sl_FilenameList.at( i ).section( "/", 0, -2 );
+            tcmd << "send \"put \\\"" << sl_FilenameList.at( i ).section( "/", 0, -3 );
             tcmd << setLocalFile( sl_FilenameList.at( i ).section( "/", -1, -1 ) ) << "\\\" ";
             tcmd << sl_RemoteFilenameList.at( i ) << "\\n\"" << endl;
         }
@@ -473,7 +473,7 @@ QString MainWindow::UploadDirectory( const int server, const int mode )
         s_UploadDirectory = "/hs/usero";
         break;
     case _MW1_:
-        s_UploadDirectory = "/pangaea/htdocs/pangaea-family/store";
+        s_UploadDirectory = "/pangaea/store";
         break;
     default:
         break;

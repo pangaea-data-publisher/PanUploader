@@ -13,19 +13,11 @@ void MainWindow::doSetGlobalOptionsDialog()
 
     dialog.WorkingDirectory_lineEdit->setText( gs_WorkingDirectory );
 
-    dialog.EasyThumbnailsProgram_lineEdit->setText( gs_EasyThumbnails );
-    dialog.wgetProgram_lineEdit->setText( gs_wget );
-    dialog.psftpProgram_lineEdit->setText( gs_psftp );
-
     dialog.User_hssrv2_lineEdit->setText( gs_User_hssrv2 );
     dialog.Password_hssrv2_lineEdit->setText( gs_Password_hssrv2 );
 
     dialog.User_pangaea_lineEdit->setText( gs_User_pangaea );
     dialog.Password_pangaea_lineEdit->setText( gs_Password_pangaea );
-
-#if defined(Q_OS_MAC)
-    dialog.Programs_groupBox->hide();
-#endif
 
     dialog.OK_pushButton->setWhatsThis( "Close dialog" );
     dialog.Cancel_pushButton->setWhatsThis( "Cancel dialog" );
@@ -40,10 +32,6 @@ void MainWindow::doSetGlobalOptionsDialog()
     {
     case QDialog::Accepted:
         gs_WorkingDirectory     = dialog.WorkingDirectory_lineEdit->text();
-
-        gs_EasyThumbnails       = dialog.EasyThumbnailsProgram_lineEdit->text();
-        gs_wget                 = dialog.wgetProgram_lineEdit->text();
-        gs_psftp                = dialog.psftpProgram_lineEdit->text();
 
         gs_User_hssrv2          = dialog.User_hssrv2_lineEdit->text();
         gs_Password_hssrv2      = dialog.Password_hssrv2_lineEdit->text();
@@ -75,9 +63,6 @@ SetGlobalOptionsDialog::SetGlobalOptionsDialog( QWidget *parent ) : QDialog( par
     connect(Cancel_pushButton, SIGNAL(clicked()), this, SLOT(reject()));
 
     connect(browseWorkingDirectory_pushButton, SIGNAL(clicked()), this, SLOT( browseWorkingDirectoryDialog() ));
-    connect(browseEasyThumbnailsProgram_pushButton, SIGNAL(clicked()), this, SLOT( browseEasyThumbnailsProgramDialog() ));
-    connect(browseWgetProgram_pushButton, SIGNAL(clicked()), this, SLOT( browseWgetProgramDialog() ));
-    connect(browsePSftpProgram_pushButton, SIGNAL(clicked()), this, SLOT( browsePSftpProgramDialog() ));
 }
 
 // ***********************************************************************************************************************
@@ -105,87 +90,6 @@ void SetGlobalOptionsDialog::browseWorkingDirectoryDialog()
     WorkingDirectory_lineEdit->setText( QDir::toNativeSeparators( resultPath ) );
 
     WorkingDirectory_lineEdit->setFocus();
-}
-
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-
-void SetGlobalOptionsDialog::browseEasyThumbnailsProgramDialog()
-{
-    QString	fn			= "";
-    QString file		= EasyThumbnailsProgram_lineEdit->text();
-    QString fileStart	= getProgramDir();
-
-// ***********************************************************************************************************************
-
-    fileStart.replace( "://", ":/" );
-
-    if ( file.isEmpty() == false )
-        fileStart = file;
-
-    fn = QFileDialog::getOpenFileName( this, tr( "Select the EasyThumbnails program (*.exe)" ), fileStart, tr( "EXE file (*.exe)" ) );
-
-    if ( fn.isEmpty() == true )
-        fn = file;
-
-    EasyThumbnailsProgram_lineEdit->setText( QDir::toNativeSeparators( fn ) );
-
-    EasyThumbnailsProgram_lineEdit->setFocus();
-}
-
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-
-void SetGlobalOptionsDialog::browseWgetProgramDialog()
-{
-    QString	fn			= "";
-    QString file		= wgetProgram_lineEdit->text();
-    QString fileStart	= getProgramDir();
-
-// ***********************************************************************************************************************
-
-    fileStart.replace( "://", ":/" );
-
-    if ( file.isEmpty() == false )
-        fileStart = file;
-
-    fn = QFileDialog::getOpenFileName( this, tr( "Select the wget program (*.exe)" ), fileStart, tr( "EXE file (*.exe)" ) );
-
-    if ( fn.isEmpty() == true )
-        fn = file;
-
-    wgetProgram_lineEdit->setText( QDir::toNativeSeparators( fn ) );
-
-    wgetProgram_lineEdit->setFocus();
-}
-
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-// ***********************************************************************************************************************
-
-void SetGlobalOptionsDialog::browsePSftpProgramDialog()
-{
-    QString	fn			= "";
-    QString file		= psftpProgram_lineEdit->text();
-    QString fileStart	= getProgramDir();
-
-// ***********************************************************************************************************************
-
-    fileStart.replace( "://", ":/" );
-
-    if ( file.isEmpty() == false )
-        fileStart = file;
-
-    fn = QFileDialog::getOpenFileName( this, tr( "Select the psftp program (*.exe)" ), fileStart, tr( "EXE file (*.exe)" ) );
-
-    if ( fn.isEmpty() == true )
-        fn = file;
-
-    psftpProgram_lineEdit->setText( QDir::toNativeSeparators( fn ) );
-
-    psftpProgram_lineEdit->setFocus();
 }
 
 // ***********************************************************************************************************************
