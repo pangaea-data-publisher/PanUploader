@@ -145,7 +145,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
         for ( int i=0; i<sl_FilenameList.count(); i++ )
         {
             tcmd << "expect \"sftp> \"" << endl;
-            tcmd << "send \"put \\\"" << sl_FilenameList.at( i ).section( "/", 0, -3 );
+            tcmd << "send \"put \\\"" << sl_FilenameList.at( i ).section( "/", 0, -2 );
             tcmd << setLocalFile( sl_FilenameList.at( i ).section( "/", -1, -1 ) ) << "\\\" ";
             tcmd << sl_RemoteFilenameList.at( i ) << "\\n\"" << endl;
         }

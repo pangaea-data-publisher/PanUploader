@@ -11,14 +11,14 @@
 
 int MainWindow::createDummyFiles( const QString &s_WorkingDirectory )
 {
-    QString s_CoreDescriptionFilename		= s_WorkingDirectory + "/" + _COREDESCRIPTION_FILENAME_;
-    QString s_CoreLegendFilename			= s_WorkingDirectory + "/" + _CORELEGEND_FILENAME_;
-    QString s_CoreLoggerProtokollFilename	= s_WorkingDirectory + "/" + _CORELOGGERPROTOKOLL_FILENAME_;
-    QString s_CoreSectionTableFilename      = s_WorkingDirectory + "/" + _CORESECTIONTABLE_FILENAME_;
-    QString s_BenthosMapFilename			= s_WorkingDirectory + "/" + _BENTHOSMAP_FILENAME_;
-    QString s_BenthosTrackFilename			= s_WorkingDirectory + "/" + _BENTHOSTRACK_FILENAME_;
-    QString s_BenthosBathFilename			= s_WorkingDirectory + "/" + _BENTHOSBATH_FILENAME_;
-    QString s_InfoFilename					= s_WorkingDirectory + "/" + _INFO_FILENAME_;
+    QString s_CoreDescriptionFilename		= s_WorkingDirectory + _COREDESCRIPTION_FILENAME_;
+    QString s_CoreLegendFilename			= s_WorkingDirectory + _CORELEGEND_FILENAME_;
+    QString s_CoreLoggerProtokollFilename	= s_WorkingDirectory + _CORELOGGERPROTOKOLL_FILENAME_;
+    QString s_CoreSectionTableFilename      = s_WorkingDirectory + _CORESECTIONTABLE_FILENAME_;
+    QString s_BenthosMapFilename			= s_WorkingDirectory + _BENTHOSMAP_FILENAME_;
+    QString s_BenthosTrackFilename			= s_WorkingDirectory + _BENTHOSTRACK_FILENAME_;
+    QString s_BenthosBathFilename			= s_WorkingDirectory + _BENTHOSBATH_FILENAME_;
+    QString s_InfoFilename					= s_WorkingDirectory + _INFO_FILENAME_;
 
 //--------------------------------------------------------------------------------------------------------------------------------
 
