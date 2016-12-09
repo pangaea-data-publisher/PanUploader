@@ -2,6 +2,8 @@
 /* 2012-12-30                 */
 /* Dr. Rainer Sieger          */
 
+#include "QDebug"
+
 #include "Application.h"
 
 // **********************************************************************************************
@@ -145,8 +147,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
         for ( int i=0; i<sl_FilenameList.count(); i++ )
         {
             tcmd << "expect \"sftp> \"" << endl;
-            tcmd << "send \"put \\\"" << sl_FilenameList.at( i ).section( "/", 0, -2 );
-            tcmd << setLocalFile( sl_FilenameList.at( i ).section( "/", -1, -1 ) ) << "\\\" ";
+            tcmd << "send " << "\"put \\\"" << setLocalFile( sl_FilenameList.at( i ) ) << "\\\" ";
             tcmd << sl_RemoteFilenameList.at( i ) << "\\n\"" << endl;
         }
 
@@ -157,15 +158,15 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
     if ( ( b_createThumbnails == true ) && ( b_uploadThumbnails == true ) )
     {
-        tcmd << "rm " << s_RootDir << _COREDESCRIPTION_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _CORELEGEND_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _CORELOGGERPROTOKOLL_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _CORESECTIONTABLE_FILENAME_ << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _COREDESCRIPTION_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _CORELEGEND_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _CORELOGGERPROTOKOLL_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _CORESECTIONTABLE_FILENAME_ << "\"" << endl;
 
-        tcmd << "rm " << s_RootDir << _BENTHOSMAP_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _BENTHOSTRACK_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _BENTHOSBATH_FILENAME_ << endl;
-        tcmd << "rm " << s_RootDir << _INFO_FILENAME_ << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _BENTHOSMAP_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _BENTHOSTRACK_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _BENTHOSBATH_FILENAME_ << "\"" << endl;
+        tcmd << "rm " << "\"" << s_RootDir << _INFO_FILENAME_ << "\"" << endl;
 
         s_oldPath = s_RootDir;
 
@@ -173,7 +174,7 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
         {
             if ( s_oldPath != sl_FilenameList.at( i ).section( "/", 0, -2 ) )
             {
-                tcmd << "rm -r " << sl_FilenameList.at( i ).section( "/", 0, -2 ) << "/thumbs" << endl;
+                tcmd << "rm -r " << "\"" << sl_FilenameList.at( i ).section( "/", 0, -2 ) << "/thumbs" << "\"" << endl;
 
                 s_oldPath = sl_FilenameList.at( i ).section( "/", 0, -2 );
             }
@@ -256,7 +257,7 @@ QString MainWindow::setLocalFile( const QString &s_LocalFileIn )
 {
     const QString _ERROR_  = "_ERROR_";
 
-    QString s_LocalFileOut = s_LocalFileIn;
+    QString s_LocalFileOut = s_LocalFileIn.section( "/", -1, -1 );
 
 // **********************************************************************************************
 
@@ -265,37 +266,37 @@ QString MainWindow::setLocalFile( const QString &s_LocalFileIn )
 // **********************************************************************************************
 
     if ( s_LocalFileIn.contains( "_bath", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _BENTHOSBATH_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _BENTHOSBATH_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_coresec", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _CORESECTIONTABLE_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _CORESECTIONTABLE_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_descr", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _COREDESCRIPTION_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _COREDESCRIPTION_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_legend", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _CORELEGEND_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _CORELEGEND_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_log", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _CORELOGGERPROTOKOLL_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _CORELOGGERPROTOKOLL_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_map", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _BENTHOSMAP_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _BENTHOSMAP_FILENAME_ );
 
     if ( s_LocalFileIn.contains( "_track", Qt::CaseInsensitive ) == true )
-        return( tr( "/" ) + _BENTHOSTRACK_FILENAME_ );
+        return( s_LocalFileIn.section( "/", 0, -3 ) + tr( "/" ) + _BENTHOSTRACK_FILENAME_ );
 
     if ( s_LocalFileIn.endsWith( "jpg" ) == true )
-        return( tr( "/thumbs/" ) + s_LocalFileOut );
+        return( s_LocalFileIn.section( "/", 0, -2 ) + tr( "/thumbs/" ) + s_LocalFileOut );
 
     if ( s_LocalFileIn.endsWith( "png" ) == true )
-        return( tr( "/thumbs/" ) + s_LocalFileOut );
+        return( s_LocalFileIn.section( "/", 0, -2 ) + tr( "/thumbs/" ) + s_LocalFileOut );
 
     if ( s_LocalFileIn.endsWith( "gif" ) == true )
-        return( tr( "/thumbs/" ) + s_LocalFileOut );
+        return( s_LocalFileIn.section( "/", 0, -2 ) + tr( "/thumbs/" ) + s_LocalFileOut );
 
     if ( s_LocalFileIn.endsWith( "tif" ) == true )
-        return( tr( "/thumbs/" ) + s_LocalFileOut );
+        return( s_LocalFileIn.section( "/", 0, -2 ) + tr( "/thumbs/" ) + s_LocalFileOut );
 
     return( _ERROR_ );
 }
