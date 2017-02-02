@@ -10,15 +10,21 @@
 // **********************************************************************************************
 // 2017-01-30
 
-int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, const QString &s_WorkingDirectory, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea, const QString &s_CommandFile )
+int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea, const QString &s_CommandFile )
 {
-    bool        b_testmode  = false;
+    bool        b_testmode              = false;
 
-    QString     s_UrlUpload = "/pangaea/store/Images/Documentation";
+    QString     s_UrlUploadDirBaseStore = "/pangaea/store/Images/Documentation";
+    QString     s_UrlUploadDirStore     = "";
+    QString     s_WorkingDirectory      = "";
 
 // **********************************************************************************************
 
-    QFile fcmd( s_CommandFile );
+    QFileInfo fi( sl_FilenameList.at( 0 ) );
+
+    s_WorkingDirectory = fi.absolutePath();
+
+    QFile fcmd( s_WorkingDirectory + "/" + s_CommandFile );
     if ( fcmd.open( QIODevice::WriteOnly | QIODevice::Text ) == false )
         return( -20 );
 
@@ -28,24 +34,35 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
 
 #if defined(Q_OS_MAC)
     tcmd << "#!/bin/bash" << endl;
-    tcmd << "echo downloading latest pictures of Jubany station" << endl << endl;
+    tcmd << "echo Uploading latest pictures of Jubany station" << endl << endl;
+
+    tcmd << "echo Creating thumbnails" << endl;
 
     tcmd << "JubanyLocalPath=\"" + s_WorkingDirectory + "\"" << endl << endl;
 
-    tcmd << "mkdir ${JubanyLocalPath}/images" << endl;
-    tcmd << "mkdir ${JubanyLocalPath}/images/thumbs" << endl << endl;
+    tcmd << "mkdir \"${JubanyLocalPath}/thumbs\"" << endl;
+    tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
+    tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl << endl;
 
-    tcmd << endl << "echo creating thumbnails" << endl;
-    tcmd << "cd ${JubanyLocalPath}/images" << endl;
-    tcmd << "sips -Z 250 *.jpg --out thumbs" << endl << endl;
+    tcmd << "cd \"${JubanyLocalPath}\"" << endl;
+    tcmd << "sips -Z 250 Jubany_Station_*.jpg --out thumbs/Jubany" << endl;
+    tcmd << "sips -Z 250 Jubany_Station1_*.jpg --out thumbs/Jubany1" << endl << endl;
 
-    tcmd << "cd thumbs" << endl;
+    tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
     tcmd << "for file in *.jpg" << endl;
     tcmd << "do" << endl;
     tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
     tcmd << "done" << endl << endl;
 
-    tcmd << "cd ../.." << endl << endl;
+    tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl;
+    tcmd << "for file in *.jpg" << endl;
+    tcmd << "do" << endl;
+    tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
+    tcmd << "done" << endl << endl;
+
+    tcmd << "cd ${JubanyLocalPath}" << endl << endl;
+
+    tcmd << "echo Uploading thumbnails" << endl << endl;
 
     tcmd << "echo ' #!/usr/bin/expect" << endl;
     tcmd << "spawn sftp " << s_User_pangaea << "@pangaea-mw1.awi.de" << endl;
@@ -56,14 +73,19 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
     for ( int i=0; i<sl_FilenameList.count(); i++ )
     {
         if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-            s_UrlUpload.append( "/Jubany1/" );
+            s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
         else
-            s_UrlUpload.append( "/Jubany/" );
+            s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
 
-        tcmd << "send \"cd " << s_UrlUpload << sl_FilenameList.at( i ).section( "/", 6, 6 ) << "\\n\"" << endl;
+        tcmd << "send \"cd " << s_UrlUploadDirStore << "\\n\"" << endl;
 
         tcmd << "expect \"sftp> \"" << endl;
-        tcmd << "send \"lcd " << s_WorkingDirectory << "/images/thumbs\\n\"" << endl;
+
+        if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+            tcmd << "send \"lcd " << s_WorkingDirectory << "/thumbs/Jubany1\\n\"" << endl;
+        else
+            tcmd << "send \"lcd " << s_WorkingDirectory << "/thumbs/Jubany\\n\"" << endl;
+
         tcmd << "expect \"sftp> \"" << endl;
         tcmd << "send \"mput *.jpg\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
@@ -74,7 +96,7 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
 
     if ( b_testmode == false )
     {
-        tcmd << "rm -r images" << endl;
+        tcmd << "rm -r thumbs" << endl;
         tcmd << "rm runJubany.sh" << endl;
     }
 #endif
@@ -92,7 +114,6 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
     fcmd.close();
 
 #if defined(Q_OS_MAC)
-/*
     QProcess process;
     QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
     process.startDetached( s_arg );
@@ -101,6 +122,7 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
 
     s_arg = "\"" + fcmd.fileName() + "\"";
 
+/*
     if ( process.startDetached( s_arg ) == false )
     {
         QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
@@ -135,12 +157,12 @@ void MainWindow::doCreateJubanyThumbnails()
 
     int         stopProgress      = 0;
 
-    QString     s_CommandFile     = "";
+    QString     s_CommandFile     = "runJubany.sh";
 
 // **********************************************************************************************
 
     if ( gsl_FilenameList.count() > 0 )
-        err = createJubanyThumbnails( gsl_FilenameList, gs_WorkingDirectory, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, s_CommandFile );
+        err = createJubanyThumbnails( gsl_FilenameList, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, s_CommandFile );
     else
         err = _CHOOSEABORTED_;
 
