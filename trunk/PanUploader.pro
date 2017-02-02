@@ -1,7 +1,7 @@
 # PanUploader - creats thumbnails form photographs and upload them to store.pangaea.de and hs.pangaea.de
 # Rainer Sieger
 # Alfred Wegener Institute, Bremerhaven, Germany
-# last change: 2014-10-04
+# last change: 2017-02-02
 
 macx {
     # creating cache file
@@ -57,10 +57,10 @@ SOURCES = ./Sources/ApplicationInit.cpp \
     ./Sources/ApplicationErrors.cpp \
     ./Sources/ApplicationPreferences.cpp \
     ./Sources/ApplicationCreateMenu.cpp \
-    ./Sources/createJubanyThumbnails.cpp \
     ./Sources/createDummyFiles.cpp \
     ./Sources/turnImages.cpp \
     ./Sources/uploadImages.cpp \
+    ./Sources/uploadImagesJubany.cpp \
     ./Sources/simplecrypt.cpp \
     ./Forms/AboutDialog/AboutDialog.cpp \
     ./Forms/SetGlobalOptionsDialog/SetGlobalOptionsDialog.cpp \
