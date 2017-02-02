@@ -1,7 +1,6 @@
-/* createJubanyThumbnails.cpp        */
-/* 2012-12-12                        */
-/* first run on new iMac: 2013-03-20 */
-/* Dr. Rainer Sieger                 */
+/* uploadImagesJubany.cpp           */
+/* 2017-02-02                       */
+/* Dr. Rainer Sieger                */
 
 #include "Application.h"
 
@@ -15,8 +14,18 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
     bool        b_testmode              = false;
 
     QString     s_UrlUploadDirBaseStore = "/pangaea/store/Images/Documentation";
+    QString     s_UrlUploadDirBaseHS    = "/hs/usero/Images/Documentation";
     QString     s_UrlUploadDirStore     = "";
+    QString     s_UrlUploadDirHS        = "";
     QString     s_WorkingDirectory      = "";
+
+// **********************************************************************************************
+
+    if ( ( s_User_hssrv2.isEmpty() == true ) || ( s_Password_hssrv2.isEmpty() == true ) )
+        return( -30 );
+
+    if ( ( s_User_pangaea.isEmpty() == true ) || ( s_Password_pangaea.isEmpty() == true ) )
+        return( -40 );
 
 // **********************************************************************************************
 
@@ -62,6 +71,26 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
 
     tcmd << "cd ${JubanyLocalPath}" << endl << endl;
 
+    tcmd << "echo Uploading images" << endl << endl;
+
+    tcmd << "ftp -inv hssrv2.awi.de<<ENDFTP" << endl;
+    tcmd << "user " << s_User_hssrv2 << " " << s_Password_hssrv2 << endl;
+
+    for ( int i=0; i<sl_FilenameList.count(); i++ )
+    {
+        if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+            s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
+        else
+            s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+
+        tcmd << "cd " << s_UrlUploadDirHS << endl;
+
+        tcmd << "put \"" << sl_FilenameList.at( i ) << "\" " << s_UrlUploadDirHS << sl_FilenameList.at( i ).section( "/", -1, -1 ) << endl;
+    }
+
+    tcmd << "bye" << endl;
+    tcmd << "ENDFTP" << endl << endl;;
+
     tcmd << "echo Uploading thumbnails" << endl << endl;
 
     tcmd << "echo ' #!/usr/bin/expect" << endl;
@@ -82,9 +111,9 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
         tcmd << "expect \"sftp> \"" << endl;
 
         if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-            tcmd << "send \"lcd " << s_WorkingDirectory << "/thumbs/Jubany1\\n\"" << endl;
+            tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
         else
-            tcmd << "send \"lcd " << s_WorkingDirectory << "/thumbs/Jubany\\n\"" << endl;
+            tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
 
         tcmd << "expect \"sftp> \"" << endl;
         tcmd << "send \"mput *.jpg\\n\"" << endl;
@@ -118,22 +147,23 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
     QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
     process.startDetached( s_arg );
 
-    wait( 100 );
-
-    s_arg = "\"" + fcmd.fileName() + "\"";
-
-/*
-    if ( process.startDetached( s_arg ) == false )
+    if ( b_testmode == false )
     {
-        QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
-        QMessageBox::warning( this, getApplicationName( true ), s_Message );
+        wait( 100 );
+
+        s_arg = "\"" + fcmd.fileName() + "\"";
+
+        if ( process.startDetached( s_arg ) == false )
+        {
+            QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
+            QMessageBox::warning( this, getApplicationName( true ), s_Message );
+        }
+        else
+        {
+            while ( fcmd.exists() == true )
+                wait( 1000 );
+        }
     }
-    else
-    {
-        while ( fcmd.exists() == true )
-            wait( 1000 );
-    }
-*/
 #endif
 
 #if defined(Q_OS_WIN)
