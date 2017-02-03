@@ -35,6 +35,8 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
     case _LINESCANS_:
         dialog.PartOfPath->setText( tr( ".../Images/Linescan/" ) );
         break;
+    case _JUBANY_:
+        dialog.PartOfPath->setText( tr( ".../Images/Documentation/") );
     default:
         break;
     }
@@ -61,6 +63,12 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
 
     dialog.OK_pushButton->setWhatsThis( "Set new parameter title orientation" );
     dialog.Cancel_pushButton->setWhatsThis( "Cancel dialog" );
+
+    if ( mode == _JUBANY_ )
+    {
+        dialog.Result_groupBox->hide();
+        dialog.DirectoryStructure_groupBox->hide();
+    }
 
     dialog.move( posDialog );
     dialog.resize( dialog.sizeHint() );

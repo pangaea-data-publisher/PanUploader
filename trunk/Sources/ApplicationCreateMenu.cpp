@@ -61,7 +61,7 @@ void MainWindow::createActions()
     connect(runLinescansScriptAction, SIGNAL(triggered()), this, SLOT(doBuildLinescansScript()));
 
     runJubanyScriptAction = new QAction(tr("Run Jubany script..."), this);
-    connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doCreateJubanyThumbnails()));
+    connect(runJubanyScriptAction, SIGNAL(triggered()), this, SLOT(doUploadImagesJubany()));
 
     turnImagesAction = new QAction(tr("Turn images..."), this);
     connect(turnImagesAction, SIGNAL(triggered()), this, SLOT(doTurnImages()));

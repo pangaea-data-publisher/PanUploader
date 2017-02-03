@@ -9,10 +9,11 @@
 // **********************************************************************************************
 // 2017-01-30
 
-int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea, const QString &s_CommandFile )
+int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea )
 {
     bool        b_testmode              = false;
 
+    QString     s_CommandFile           = "runJubany.sh";
     QString     s_UrlUploadDirBaseStore = "/pangaea/store/Images/Documentation";
     QString     s_UrlUploadDirBaseHS    = "/hs/usero/Images/Documentation";
     QString     s_UrlUploadDirStore     = "";
@@ -181,20 +182,25 @@ int MainWindow::createJubanyThumbnails( const QStringList &sl_FilenameList, cons
 // **********************************************************************************************
 // **********************************************************************************************
 
-void MainWindow::doCreateJubanyThumbnails()
+void MainWindow::doUploadImagesJubany()
 {
     int         err               = _NOERROR_;
 
     int         stopProgress      = 0;
 
-    QString     s_CommandFile     = "runJubany.sh";
-
 // **********************************************************************************************
 
     if ( gsl_FilenameList.count() > 0 )
-        err = createJubanyThumbnails( gsl_FilenameList, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, s_CommandFile );
+    {
+        if ( doSetThumbnailOptionsDialog( _JUBANY_, gsl_FilenameList.at( 0 ), gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_runScript ) == QDialog::Accepted )
+            err = uploadImagesJubany( gsl_FilenameList, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea );
+        else
+            err = _CHOOSEABORTED_;
+    }
     else
+    {
         err = _CHOOSEABORTED_;
+    }
 
 // **********************************************************************************************
 

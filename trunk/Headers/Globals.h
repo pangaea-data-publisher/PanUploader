@@ -30,6 +30,7 @@
     const int   _OFOS_                  = 2;
     const int   _CORES_                 = 3;
     const int   _LINESCANS_             = 4;
+    const int   _JUBANY_                = 5;
 
     const int   _IMAGES_                = 1;
     const int   _THUMBNAILS_            = 2;

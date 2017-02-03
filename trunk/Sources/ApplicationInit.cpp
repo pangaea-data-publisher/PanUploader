@@ -19,7 +19,7 @@
 
 MainWindow::MainWindow( QWidget *parent ) : QMainWindow( parent )
 {
-//  QObject::connect( this, SIGNAL( finishedBuildFilelist() ), this, SLOT( doCreateJubanyThumbnails() ) );
+//  QObject::connect( this, SIGNAL( finishedBuildFilelist() ), this, SLOT( doUploadImagesJubany() ) );
 
 // **********************************************************************************************
 
