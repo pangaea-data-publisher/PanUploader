@@ -9,7 +9,7 @@
 // **********************************************************************************************
 // 2017-01-30
 
-int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea )
+int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea, bool &b_createThumbnails, bool &b_uploadThumbnails, bool &b_uploadImages, bool &b_runScript )
 {
     bool        b_testmode              = false;
 
@@ -17,6 +17,7 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     QString     s_UrlUploadDirBaseStore = "/pangaea/store/Images/Documentation";
     QString     s_UrlUploadDirBaseHS    = "/hs/usero/Images/Documentation";
     QString     s_UrlUploadDirStore     = "";
+    QString     s_UrlUploadDirStoreOld  = "";
     QString     s_UrlUploadDirHS        = "";
     QString     s_WorkingDirectory      = "";
 
@@ -46,83 +47,106 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     tcmd << "#!/bin/bash" << endl;
     tcmd << "echo Uploading latest pictures of Jubany station" << endl << endl;
 
-    tcmd << "echo Creating thumbnails" << endl;
-
     tcmd << "JubanyLocalPath=\"" + s_WorkingDirectory + "\"" << endl << endl;
 
-    tcmd << "mkdir \"${JubanyLocalPath}/thumbs\"" << endl;
-    tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
-    tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl << endl;
+// **********************************************************************************************
+// Create thumbnails
 
-    tcmd << "cd \"${JubanyLocalPath}\"" << endl;
-    tcmd << "sips -Z 250 Jubany_Station_*.jpg --out thumbs/Jubany" << endl;
-    tcmd << "sips -Z 250 Jubany_Station1_*.jpg --out thumbs/Jubany1" << endl << endl;
-
-    tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
-    tcmd << "for file in *.jpg" << endl;
-    tcmd << "do" << endl;
-    tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
-    tcmd << "done" << endl << endl;
-
-    tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl;
-    tcmd << "for file in *.jpg" << endl;
-    tcmd << "do" << endl;
-    tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
-    tcmd << "done" << endl << endl;
-
-    tcmd << "cd ${JubanyLocalPath}" << endl << endl;
-
-    tcmd << "echo Uploading images" << endl << endl;
-
-    tcmd << "ftp -inv hssrv2.awi.de<<ENDFTP" << endl;
-    tcmd << "user " << s_User_hssrv2 << " " << s_Password_hssrv2 << endl;
-
-    for ( int i=0; i<sl_FilenameList.count(); i++ )
+    if ( b_createThumbnails == true )
     {
-        if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-            s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
-        else
-            s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+        tcmd << "echo Creating thumbnails" << endl;
 
-        tcmd << "cd " << s_UrlUploadDirHS << endl;
+        tcmd << "mkdir \"${JubanyLocalPath}/thumbs\"" << endl;
+        tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
+        tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl << endl;
 
-        tcmd << "put \"" << sl_FilenameList.at( i ) << "\" " << s_UrlUploadDirHS << sl_FilenameList.at( i ).section( "/", -1, -1 ) << endl;
+        tcmd << "cd \"${JubanyLocalPath}\"" << endl;
+        tcmd << "sips -Z 250 Jubany_Station_*.jpg --out thumbs/Jubany" << endl;
+        tcmd << "sips -Z 250 Jubany_Station1_*.jpg --out thumbs/Jubany1" << endl << endl;
+
+        tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
+        tcmd << "for file in *.jpg" << endl;
+        tcmd << "do" << endl;
+        tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
+        tcmd << "done" << endl << endl;
+
+        tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl;
+        tcmd << "for file in *.jpg" << endl;
+        tcmd << "do" << endl;
+        tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
+        tcmd << "done" << endl << endl;
     }
 
-    tcmd << "bye" << endl;
-    tcmd << "ENDFTP" << endl << endl;;
+// **********************************************************************************************
+// Upload images
 
-    tcmd << "echo Uploading thumbnails" << endl << endl;
-
-    tcmd << "echo ' #!/usr/bin/expect" << endl;
-    tcmd << "spawn sftp " << s_User_pangaea << "@pangaea-mw1.awi.de" << endl;
-    tcmd << "expect \"password:\"" << endl;
-    tcmd << "send \"" << s_Password_pangaea << "\\n\"" << endl;
-    tcmd << "expect \"sftp> \"" << endl;
-
-    for ( int i=0; i<sl_FilenameList.count(); i++ )
+    if ( b_uploadImages == true )
     {
-        if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-            s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
-        else
-            s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+        tcmd << "echo Uploading images" << endl << endl;
 
-        tcmd << "send \"cd " << s_UrlUploadDirStore << "\\n\"" << endl;
+        tcmd << "cd ${JubanyLocalPath}" << endl << endl;
 
-        tcmd << "expect \"sftp> \"" << endl;
+        tcmd << "ftp -inv hssrv2.awi.de<<ENDFTP" << endl;
+        tcmd << "user " << s_User_hssrv2 << " " << s_Password_hssrv2 << endl;
 
-        if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-            tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
-        else
-            tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
+        for ( int i=0; i<sl_FilenameList.count(); i++ )
+        {
+            if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+                s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
+            else
+                s_UrlUploadDirHS = s_UrlUploadDirBaseHS + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
 
-        tcmd << "expect \"sftp> \"" << endl;
-        tcmd << "send \"mput *.jpg\\n\"" << endl;
-        tcmd << "expect \"sftp> \"" << endl;
+            tcmd << "cd " << s_UrlUploadDirHS << endl;
+
+            tcmd << "put \"" << sl_FilenameList.at( i ) << "\" " << s_UrlUploadDirHS << sl_FilenameList.at( i ).section( "/", -1, -1 ) << endl;
+        }
+
+        tcmd << "bye" << endl;
+        tcmd << "ENDFTP" << endl << endl;;
     }
 
-    tcmd << "send \"quit\\n\"" << endl;
-    tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
+// **********************************************************************************************
+// Upload thumbnails
+
+    if ( b_uploadThumbnails == true )
+    {
+        tcmd << "echo Uploading thumbnails" << endl << endl;
+
+        tcmd << "echo ' #!/usr/bin/expect" << endl;
+        tcmd << "spawn sftp " << s_User_pangaea << "@pangaea-mw1.awi.de" << endl;
+        tcmd << "expect \"password:\"" << endl;
+        tcmd << "send \"" << s_Password_pangaea << "\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
+
+        for ( int i=0; i<sl_FilenameList.count(); i++ )
+        {
+            if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+                s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
+            else
+                s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+
+            if ( s_UrlUploadDirStore != s_UrlUploadDirStoreOld )
+            {
+                s_UrlUploadDirStoreOld = s_UrlUploadDirStore;
+
+                tcmd << "send \"cd " << s_UrlUploadDirStore << "\\n\"" << endl;
+
+                tcmd << "expect \"sftp> \"" << endl;
+
+                if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+                    tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
+                else
+                    tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
+
+                tcmd << "expect \"sftp> \"" << endl;
+                tcmd << "send \"mput *.jpg\\n\"" << endl;
+                tcmd << "expect \"sftp> \"" << endl;
+            }
+        }
+
+        tcmd << "send \"quit\\n\"" << endl;
+        tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
+    }
 
     if ( b_testmode == false )
     {
@@ -139,20 +163,19 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     ;
 #endif
 
-// **********************************************************************************************
-
     fcmd.close();
+
+// **********************************************************************************************
 
 #if defined(Q_OS_MAC)
     QProcess process;
     QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
     process.startDetached( s_arg );
+    wait( 100 );
 
-    if ( b_testmode == false )
+    if ( b_runScript == true )
     {
-        wait( 100 );
-
-        s_arg = "\"" + fcmd.fileName() + "\"";
+        s_arg = "\"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
 
         if ( process.startDetached( s_arg ) == false )
         {
@@ -190,10 +213,12 @@ void MainWindow::doUploadImagesJubany()
 
 // **********************************************************************************************
 
+    existsFirstFile( gi_ActionNumber, gs_FilenameFormat, gi_Extension, gsl_FilenameList );
+
     if ( gsl_FilenameList.count() > 0 )
     {
         if ( doSetThumbnailOptionsDialog( _JUBANY_, gsl_FilenameList.at( 0 ), gs_Level1_static, gs_Level2_static, gi_Level2_first, gi_Level2_last, gs_Level3_static, gi_Level3_first, gi_Level3_last, gs_Level4_static, gi_Level4_first, gi_Level4_last, gi_ThumbnailWidth, gi_ThumbnailHeight, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_runScript ) == QDialog::Accepted )
-            err = uploadImagesJubany( gsl_FilenameList, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea );
+            err = uploadImagesJubany( gsl_FilenameList, gs_User_hssrv2, gs_Password_hssrv2, gs_User_pangaea, gs_Password_pangaea, gb_createThumbnails, gb_uploadThumbnails, gb_uploadImages, gb_runScript );
         else
             err = _CHOOSEABORTED_;
     }

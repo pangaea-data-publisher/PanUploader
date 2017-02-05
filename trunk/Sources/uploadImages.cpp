@@ -217,33 +217,36 @@ int MainWindow::buildScript( const int mode, const QString &s_User_hssrv2, const
 
 // **********************************************************************************************
 
-    #if defined(Q_OS_MAC)
-        QProcess process;
-        QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
-        process.startDetached( s_arg );
-        wait( 100 );
-    #endif
+#if defined(Q_OS_MAC)
+    QProcess process;
+    QString s_arg = "chmod u+x \"" + fcmd.fileName() + "\"";
+    process.startDetached( s_arg );
+    wait( 100 );
 
     if ( b_runScript == true )
     {
-        #if defined(Q_OS_WIN)
-            startProgram( s_CommandFile, "" );
-        #endif
+        s_arg = "\"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
 
-        #if defined(Q_OS_MAC)
-            s_arg = "\"" + QDir::toNativeSeparators( fcmd.fileName() ) + "\"";
-            if ( process.startDetached( s_arg ) == false )
-            {
-                QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
-                QMessageBox::warning( this, getApplicationName( true ), s_Message );
-            }
-            else
-            {
-                while ( fcmd.exists() == true )
-                    wait( 1000 );
-            }
-        #endif
+        if ( process.startDetached( s_arg ) == false )
+        {
+            QString s_Message = "Cannot start the script\n\n    " + QDir::toNativeSeparators( fcmd.fileName() ) + "\n\n Please start the script manually from your shell.";
+            QMessageBox::warning( this, getApplicationName( true ), s_Message );
+        }
+        else
+        {
+            while ( fcmd.exists() == true )
+                wait( 1000 );
+        }
     }
+#endif
+
+#if defined(Q_OS_WIN)
+    startProgram( s_CommandFile, "" );
+#endif
+
+#if defined(Q_OS_LINUX)
+    ;
+#endif
 
     return( _NOERROR_ );
 }

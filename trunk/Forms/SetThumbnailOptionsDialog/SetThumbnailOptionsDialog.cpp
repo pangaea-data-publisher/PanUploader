@@ -68,6 +68,7 @@ int MainWindow::doSetThumbnailOptionsDialog( const int mode, const QString &s_Fi
     {
         dialog.Result_groupBox->hide();
         dialog.DirectoryStructure_groupBox->hide();
+        dialog.ThumbnailSize_groupBox->hide();
     }
 
     dialog.move( posDialog );
