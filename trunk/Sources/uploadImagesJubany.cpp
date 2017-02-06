@@ -13,13 +13,13 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
 {
     bool        b_testmode              = false;
 
-    QString     s_CommandFile           = "runJubany.sh";
-    QString     s_UrlUploadDirBaseStore = "/pangaea/store/Images/Documentation";
-    QString     s_UrlUploadDirBaseHS    = "/hs/usero/Images/Documentation";
-    QString     s_UrlUploadDirStore     = "";
-    QString     s_UrlUploadDirStoreOld  = "";
-    QString     s_UrlUploadDirHS        = "";
-    QString     s_WorkingDirectory      = "";
+    QString     s_CommandFile               = "runJubany.sh";
+    QString     s_UrlUploadDirBaseStore     = "/pangaea/store/Images/Documentation";
+    QString     s_UrlUploadDirBaseHS        = "/hs/usero/Images/Documentation";
+    QString     s_UrlUploadDirStoreJubany   = "";
+    QString     s_UrlUploadDirStoreJubany1  = "";
+    QString     s_UrlUploadDirHS            = "";
+    QString     s_WorkingDirectory          = "";
 
 // **********************************************************************************************
 
@@ -112,37 +112,33 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     {
         tcmd << "echo Uploading thumbnails" << endl << endl;
 
+        for ( int i=0; i<sl_FilenameList.count(); i++ )
+        {
+            if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
+                s_UrlUploadDirStoreJubany1 = s_UrlUploadDirBaseStore + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
+            else
+                s_UrlUploadDirStoreJubany = s_UrlUploadDirBaseStore + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+        }
+
         tcmd << "echo ' #!/usr/bin/expect" << endl;
         tcmd << "spawn sftp " << s_User_pangaea << "@pangaea-mw1.awi.de" << endl;
         tcmd << "expect \"password:\"" << endl;
         tcmd << "send \"" << s_Password_pangaea << "\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
 
-        for ( int i=0; i<sl_FilenameList.count(); i++ )
-        {
-            if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-                s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany1/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 16, 4 ) + "/";
-            else
-                s_UrlUploadDirStore = s_UrlUploadDirBaseStore + "/Jubany/" + sl_FilenameList.at( i ).section( "/", -1, -1 ).mid( 15, 4 ) + "/";
+        tcmd << "send \"cd " << s_UrlUploadDirStoreJubany << "\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
+        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
+        tcmd << "send \"mput *.jpg\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
 
-            if ( s_UrlUploadDirStore != s_UrlUploadDirStoreOld )
-            {
-                s_UrlUploadDirStoreOld = s_UrlUploadDirStore;
-
-                tcmd << "send \"cd " << s_UrlUploadDirStore << "\\n\"" << endl;
-
-                tcmd << "expect \"sftp> \"" << endl;
-
-                if ( sl_FilenameList.at( i ).section( "/", -1, -1 ).contains( "Jubany_Station1" ) == true )
-                    tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
-                else
-                    tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
-
-                tcmd << "expect \"sftp> \"" << endl;
-                tcmd << "send \"mput *.jpg\\n\"" << endl;
-                tcmd << "expect \"sftp> \"" << endl;
-            }
-        }
+        tcmd << "send \"cd " << s_UrlUploadDirStoreJubany1 << "\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
+        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
+        tcmd << "send \"mput *.jpg\\n\"" << endl;
+        tcmd << "expect \"sftp> \"" << endl;
 
         tcmd << "send \"quit\\n\"" << endl;
         tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
