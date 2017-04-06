@@ -11,7 +11,7 @@
 
 int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QString &s_User_hssrv2, const QString &s_Password_hssrv2, const QString &s_User_pangaea, const QString &s_Password_pangaea, bool &b_createThumbnails, bool &b_uploadThumbnails, bool &b_uploadImages, bool &b_runScript )
 {
-    bool        b_testmode              = false;
+    bool        b_testmode                  = false;
 
     QString     s_CommandFile               = "runJubany.sh";
     QString     s_UrlUploadDirBaseStore     = "/pangaea/store/Images/Documentation";
@@ -20,6 +20,7 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     QString     s_UrlUploadDirStoreJubany1  = "";
     QString     s_UrlUploadDirHS            = "";
     QString     s_WorkingDirectory          = "";
+    QString     s_Year                      = "";
 
 // **********************************************************************************************
 
@@ -33,9 +34,10 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
 
     QFileInfo fi( sl_FilenameList.at( 0 ) );
 
-    s_WorkingDirectory = fi.absolutePath();
+    s_WorkingDirectory = fi.absolutePath().section( "Jubany", 0, 1 );
+    s_Year             = fi.absolutePath().section( "/", -1, -1 );
 
-    QFile fcmd( s_WorkingDirectory + "/" + s_CommandFile );
+    QFile fcmd( s_WorkingDirectory + s_CommandFile );
     if ( fcmd.open( QIODevice::WriteOnly | QIODevice::Text ) == false )
         return( -20 );
 
@@ -47,8 +49,6 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     tcmd << "#!/bin/bash" << endl;
     tcmd << "echo Uploading latest pictures of Jubany station" << endl << endl;
 
-    tcmd << "JubanyLocalPath=\"" + s_WorkingDirectory + "\"" << endl << endl;
-
 // **********************************************************************************************
 // Create thumbnails
 
@@ -56,21 +56,23 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     {
         tcmd << "echo Creating thumbnails" << endl;
 
-        tcmd << "mkdir \"${JubanyLocalPath}/thumbs\"" << endl;
-        tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
-        tcmd << "mkdir \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl << endl;
+        tcmd << "mkdir \"" << s_WorkingDirectory << "\"" << endl;
+        tcmd << "mkdir \"" << s_WorkingDirectory << "thumbs/Jubany\"" << endl;
+        tcmd << "mkdir \"" << s_WorkingDirectory << "thumbs/Jubany1\"" << endl << endl;
 
-        tcmd << "cd \"${JubanyLocalPath}\"" << endl;
-        tcmd << "sips -Z 250 Jubany_Station_*.jpg --out thumbs/Jubany" << endl;
-        tcmd << "sips -Z 250 Jubany_Station1_*.jpg --out thumbs/Jubany1" << endl << endl;
+        tcmd << "cd \"" << s_WorkingDirectory << "Jubany/" << s_Year << "\"" << endl;
+        tcmd << "sips -Z 250 Jubany_Station_*.jpg --out ../../thumbs/Jubany" << endl << endl;
 
-        tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany\"" << endl;
+        tcmd << "cd \"" << s_WorkingDirectory << "Jubany1/" << s_Year << "\"" << endl;
+        tcmd << "sips -Z 250 Jubany_Station1_*.jpg --out ../../thumbs/Jubany1" << endl << endl;
+
+        tcmd << "cd \"" << s_WorkingDirectory << "thumbs/Jubany\"" << endl;
         tcmd << "for file in *.jpg" << endl;
         tcmd << "do" << endl;
         tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
         tcmd << "done" << endl << endl;
 
-        tcmd << "cd \"${JubanyLocalPath}/thumbs/Jubany1\"" << endl;
+        tcmd << "cd \"" << s_WorkingDirectory << "thumbs/Jubany1\"" << endl;
         tcmd << "for file in *.jpg" << endl;
         tcmd << "do" << endl;
         tcmd << "  mv \"$file\" \"${file/Jubany/TN_Jubany}\"" << endl;
@@ -83,8 +85,6 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
     if ( b_uploadImages == true )
     {
         tcmd << "echo Uploading images" << endl << endl;
-
-        tcmd << "cd ${JubanyLocalPath}" << endl << endl;
 
         tcmd << "ftp -inv hssrv2.awi.de<<ENDFTP" << endl;
         tcmd << "user " << s_User_hssrv2 << " " << s_Password_hssrv2 << endl;
@@ -128,14 +128,14 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
 
         tcmd << "send \"cd " << s_UrlUploadDirStoreJubany << "\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
-        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany\\\"\\n\"" << endl;
+        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "thumbs/Jubany/\\\"\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
         tcmd << "send \"mput *.jpg\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
 
         tcmd << "send \"cd " << s_UrlUploadDirStoreJubany1 << "\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
-        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "/thumbs/Jubany1\\\"\\n\"" << endl;
+        tcmd << "send \"lcd \\\"" << s_WorkingDirectory << "thumbs/Jubany1/\\\"\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
         tcmd << "send \"mput *.jpg\\n\"" << endl;
         tcmd << "expect \"sftp> \"" << endl;
