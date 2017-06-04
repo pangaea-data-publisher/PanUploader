@@ -7,10 +7,10 @@ echo - macdeployqt
 cd ~/Development/GitHub/PanUploader
 
 rm -R '../../Distribution/PanUploader/PanUploader.app'
-cp -R './build-PanUploader-Desktop_Qt_5_8_0_clang_64bit-Release/PanUploader.app' '../../Distribution/PanUploader/PanUploader.app'
+cp -R './build-PanUploader-Desktop_Qt_5_9_0_clang_64bit-Release/PanUploader.app' '../../Distribution/PanUploader/PanUploader.app'
 cp './trunk/Resources/Info.plist' '../../Distribution/PanUploader/PanUploader.app/Contents/Info.plist'
 
-/Developer/Qt/5.8/clang_64/bin/macdeployqt '../../Distribution/PanUploader/PanUploader.app'
+/Developer/Qt/5.9/clang_64/bin/macdeployqt '../../Distribution/PanUploader/PanUploader.app'
 
 echo - code signing
 
