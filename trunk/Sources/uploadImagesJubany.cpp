@@ -145,6 +145,8 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
         tcmd << "expect eof ' | /usr/bin/expect" << endl << endl;
     }
 
+    tcmd << "cd \"" << s_WorkingDirectory << "\"" << endl;
+
     if ( b_testmode == false )
     {
         tcmd << "rm -r thumbs" << endl;
