@@ -57,6 +57,7 @@ int MainWindow::uploadImagesJubany( const QStringList &sl_FilenameList, const QS
         tcmd << "echo Creating thumbnails" << endl;
 
         tcmd << "mkdir \"" << s_WorkingDirectory << "\"" << endl;
+        tcmd << "mkdir \"" << s_WorkingDirectory << "thumbs\"" << endl;
         tcmd << "mkdir \"" << s_WorkingDirectory << "thumbs/Jubany\"" << endl;
         tcmd << "mkdir \"" << s_WorkingDirectory << "thumbs/Jubany1\"" << endl << endl;
 
