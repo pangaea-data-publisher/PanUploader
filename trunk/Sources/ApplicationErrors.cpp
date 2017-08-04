@@ -42,6 +42,9 @@ void MainWindow::onError( const int err )
     case -40:
         QMessageBox::information( this, getApplicationName(), tr( "pangaea-mw1 account not set" ) );
         break ;
+    case -45:
+        QMessageBox::information( this, getApplicationName(), tr( "not files from Jubany selected" ) );
+        break ;
     case -50:
         QMessageBox::information( this, getApplicationName(), tr( "Only one file selected" ) );
         break ;
